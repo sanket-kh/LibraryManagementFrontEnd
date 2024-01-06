@@ -1,0 +1,23 @@
+<div class="modal" id="modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">{{ heading }}</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        {{ body }}
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" *ngIf="button" data-bs-dismiss="modal" (click)="buttonClickedEvent()">{{ buttonText }}</button>
+      </div>
+
+    </div>
+  </div>
+</div>

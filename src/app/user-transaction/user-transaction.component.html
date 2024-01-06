@@ -1,0 +1,27 @@
+<app-navbar></app-navbar>
+<div class="mt-5 container">
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>S.No.</th>
+      <th>ISBN</th>
+      <th>TITLE</th>
+      <th>AUTHOR</th>
+      <th>ISSUE DATE</th>
+      <th>RETURN DATE</th>
+    </tr>
+    </thead>
+    <tbody>
+      @for (transaction of userTransactions; track transaction; let i = $index) {
+        <tr>
+          <th>{{ i + 1 }}</th>
+          <td>{{ transaction.isbn }}</td>
+          <td>{{ transaction.title }}</td>
+          <td>{{ transaction.author }}</td>
+          <td>{{ transaction.issuedDate }}</td>
+          <td>{{ transaction.returnDate }}</td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>

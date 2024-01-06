@@ -1,0 +1,44 @@
+<div class="container-fluid">
+  <div class="row align-items-center">
+    <div class="col-4"></div>
+    <div class="col-lg-4 mt-5 shadow p-2 rounded-2">
+      <form #loginForm=ngForm (ngSubmit)="onSubmit()">
+        <!-- Email input -->
+        <div class="mb-4">
+          <label class="form-label" for="username">Username</label>
+          <input type="text" name="username" id="username" class="form-control"  [(ngModel)]="loginRequest.username" #username=ngModel required [minlength]="minLength" [pattern]="RegexConstants.usernameRegex" />
+          <small class="alert-warning text-danger" *ngIf="username.touched && !username.dirty">username is required*</small>
+          <small class="alert-warning text-danger" *ngIf="username.invalid && username.dirty">username is must be at least 3 character, start with alphabet and mustn't contain special characters *</small>
+
+        </div>
+
+        <!-- Password input -->
+        <div class="form-outline mb-4">
+          <label class="form-label" for="password">Password</label>
+            <input type="password" name="password" id="password" class="form-control" [(ngModel)]="loginRequest.password" #password=ngModel required minlength="8" [pattern]="RegexConstants.passwordRegex"/>
+          <small class="alert-warning text-danger" *ngIf="password.touched && !password.dirty">Password is required* </small>
+          <small class="alert-warning text-danger" *ngIf="password.invalid && password.dirty">Password must be at least 8 character, at least one letter and one number and one special character*</small>
+        </div>
+
+        <!-- 2 column grid layout for inline styling -->
+        <div class="row mb-4">
+          <div class="col d-flex justify-content-center">
+          </div>
+
+          <div class="row-cols-auto">
+            <a href="#!" class="mx-5">Forgot password?</a>
+            <a routerLink="/register" >New user? Register Here!</a>
+          </div>
+        </div>
+
+
+        <!-- Submit button -->
+        <div class="row align-content-lg-center text-center">
+          <small *ngIf="this.loginFailed && !username.pristine" class="alert-warning text-danger">{{defaultResponse.message}}</small>
+          <div class="col-3"></div>
+          <button type="submit" class="btn btn-primary col-6" [disabled]="loginForm.invalid">Sign in</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

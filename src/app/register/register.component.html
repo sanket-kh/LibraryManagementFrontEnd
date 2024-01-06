@@ -1,0 +1,70 @@
+<div class="container-fluid card-body col-5">
+  <div class="text-center text-info">
+    <span class="display-4 fw-semibold">Register Here!</span>
+  </div>
+  <div>
+    <form class="form-floating mt-5 shadow p-2 rounded-2" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+      <!-- First Name input -->
+      <div class="form-outline mb-4 mt-3">
+        <label class="form-label" for="firstName">First Name:</label>
+        <input type="text" id="firstName" formControlName="firstName" class="form-control"/>
+        <small class="text-danger" *ngIf="firstname?.touched && (firstname?.errors && firstname?.dirty)">First letter of the name should be capital</small>
+      </div>
+
+      <!-- Last Name input -->
+      <div class="form-outline mb-4">
+        <label class="form-label" for="lastName">Last Name:</label>
+        <input type="text" id="lastName" formControlName="lastName" class="form-control"/>
+        <span class="text-danger"
+              *ngIf="lastName?.touched && (lastName?.errors && lastName?.dirty)">First letter should be capital</span>
+      </div>
+
+
+      <!-- Username input -->
+      <div class=" mb-4">
+        <label class="form-label" for="username">Username:</label>
+        <input type="text" id="username" formControlName="username" class="form-control"/>
+        <small class="text-danger"
+              *ngIf="username?.touched && (username?.errors && username?.dirty)">username must be at least 3 character, start with alphabet and mustn't contain special characters</small>
+      </div>
+
+      <!-- Email input -->
+      <div class=" mb-4">
+        <label class="form-label" for="email">Email:</label>
+        <input type="email" id="email" formControlName="email" class="form-control"/>
+        <small class="text-danger"
+              *ngIf="email?.touched && (email?.errors && email?.dirty)">Email is invalid (eg. example&#64;ex.com)</small>
+      </div>
+
+      <!-- Password input -->
+      <div class="form-outline mb-4">
+        <label class="form-label" for="password">Password:</label>
+        <input type="password" id="password" formControlName="password" class="form-control"/>
+        <small class="text-danger" *ngIf="password?.touched && (password?.errors && password?.dirty)"
+        >Password must be at least 8 character, at least one letter and one number and one special character</small>
+      </div>
+
+      <!--Confirm Password input -->
+      <div class="form-outline mb-4">
+        <label class="form-label" for="confirmPassword">Confirm Password:</label>
+        <input type="password" id="confirmPassword" formControlName="confirmPassword" class="form-control"/>
+        <small class="text-danger" *ngIf="confirmPassword?.errors && confirmPassword?.touched && confirmPassword?.dirty"
+        >password doesnt match</small>
+      </div>
+
+      <!-- phone input -->
+      <div class="form-outline mb-4">
+        <label class="form-label" for="phone">Phone:</label>
+        <input type="number" id="phone" formControlName="phone" class="form-control" [pattern]="RegexConstants.phoneRegex"/>
+        <small class="text-danger" *ngIf="phone?.errors && phone?.touched && phone?.dirty">invalid phone number</small>
+      </div>
+
+      <!-- Submit button -->
+      <div class="row align-content-lg-center">
+        <div class="col-3"></div>
+          <button type="submit" [disabled]="this.registerForm.invalid" class="btn btn-primary col-6 ">Register</button>
+      </div>
+    </form>
+  </div>
+</div>
+
