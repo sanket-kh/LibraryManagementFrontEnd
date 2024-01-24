@@ -1,0 +1,103 @@
+<app-navbar></app-navbar>
+<div class="container-fluid card-body col-5">
+  <div class="text-center text-info">
+    <span class="display-4 fw-semibold">Update Details</span>
+  </div>
+  <div>
+    <form class="form-floating mt-5 shadow p-2 rounded-2" [formGroup]="updateDetailsForm" (ngSubmit)="onSubmit()">
+      <!-- First Name input -->
+      <div class="form-outline mb-4 mt-3">
+        <label class="form-label" for="firstName">First Name:</label>
+        <input type="text" id="firstName" formControlName="firstName" class="form-control"/>
+        <small class="text-danger small" *ngIf="firstname?.touched &&  firstname?.hasError('required')">Firstname is
+          required</small>
+        <small class="text-danger small"
+               *ngIf="firstname?.touched && (firstname?.hasError('noCapital') && firstname?.dirty)">First letter should
+          be capital</small>
+        <small class="text-danger input-group"
+               *ngIf="firstname?.touched && (firstname?.hasError('specialChar') && firstname?.dirty)">Name cannot
+          contain special characters</small>
+        <small class="text-danger input-group"
+               *ngIf="firstname?.touched && (firstname?.hasError('hasNumber') && firstname?.dirty)">Name cannot contain
+          numbers</small>
+        <small class="text-danger input-group"
+               *ngIf="firstname?.touched && (firstname?.hasError('trailingSpace') && firstname?.dirty)">Name cannot have
+          trailing spaces</small>
+        <small class="text-danger input-group"
+               *ngIf="firstname?.touched && (firstname?.hasError('extraSpaceBetween') && firstname?.dirty)">Name has
+          extra space in between</small>
+        <small class="text-danger input-group"
+               *ngIf="firstname?.touched && (firstname?.hasError('capitalBetween') && firstname?.dirty)">Add a space
+          between first name and middle name</small>
+      </div>
+
+      <!-- Last Name input -->
+      <div class="form-outline mb-4">
+        <label class="form-label" for="lastName">Last Name:</label>
+        <input type="text" id="lastName" formControlName="lastName" class="form-control"/>
+        <small class="text-danger small" *ngIf="lastName?.touched &&  lastName?.hasError('required')">Lastname is
+          required</small>
+        <small class="text-danger small"
+               *ngIf="lastName?.touched && (lastName?.hasError('noCapital') && lastName?.dirty)">First letter should be
+          capital</small>
+        <small class="text-danger input-group"
+               *ngIf="lastName?.touched && (lastName?.hasError('specialChar') && lastName?.dirty)">Lastname cannot
+          contain special characters</small>
+        <small class="text-danger input-group"
+               *ngIf="lastName?.touched && (lastName?.hasError('hasNumber') && lastName?.dirty)">Lastname cannot contain
+          numbers</small>
+        <small class="text-danger input-group"
+               *ngIf="lastName?.touched && (lastName?.hasError('trailingSpace') && lastName?.dirty)">Lastname cannot
+          have trailing spaces</small>
+        <small class="text-danger input-group"
+               *ngIf="lastName?.touched && (lastName?.hasError('capitalBetween') && lastName?.dirty)">Cant have capital
+          letter between lastname</small>
+      </div>
+
+
+      <!-- Email input -->
+      <div class=" mb-4">
+        <label class="form-label" for="email">Email:</label>
+        <input type="email" id="email" formControlName="email" class="form-control"/>
+        <small class="text-danger"
+               *ngIf="email?.touched && email?.hasError('required') && !email?.dirty">Email is required</small>
+        <small class="text-danger"
+               *ngIf="email?.touched && email?.hasError('email') && email?.dirty">Enter a valid email (eg.
+          example&#64;ex.com)</small></div>
+
+      <!-- phone input -->
+      <div class="form-outline mb-4">
+        <label class="form-label" for="phone">Phone:</label>
+        <input type="text" appNoAlphabets appNoSpecialChar [appMaxLength]="10" id="phone" formControlName="phone" class="form-control"/>
+        <small class="text-danger" *ngIf="phone?.hasError('required') && phone?.touched">Phone number is
+          required</small>
+        <small class="text-danger input-group" *ngIf="phone?.errors && phone?.touched && phone?.dirty">invalid phone
+          number</small>
+      </div>
+
+      <!-- address input -->
+      <div class="form-outline mb-4">
+        <label class="form-label" for="address">Address:</label>
+        <input type="text" id="address" formControlName="address" class="form-control"/>
+        <small class="text-danger" *ngIf="address?.hasError('required') && address?.touched">Address is required</small>
+        <small class="text-danger input-group"
+               *ngIf="address?.hasError('pattern') && address?.touched && address?.dirty">please enter a valid
+          address</small></div>
+
+      <!-- Submit button -->
+      <div class="row align-content-lg-center">
+        <div class="col-3"></div>
+        <button type="button" [disabled]="this.updateDetailsForm.invalid" class="btn btn-primary col-3 "
+                (click)="onSubmit()">Submit
+        </button>
+        <button type="button" class="btn btn-secondary col-3 mx-2" routerLink="/user/profile">Go Back
+        </button>
+      </div>
+    </form>
+  </div>
+  <ngb-toast class="toast-container position-fixed end-0 p-3 top-0" *ngIf="showToast" [autohide]="true" [delay]="850"
+             (hidden)="showToast=false">{{ this.toastMessage }}
+  </ngb-toast>
+
+</div>
+

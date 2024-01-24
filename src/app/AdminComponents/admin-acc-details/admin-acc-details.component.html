@@ -1,0 +1,45 @@
+<app-management-navbar class="position-sticky top-0" style="z-index: 1;"></app-management-navbar>
+
+<div class="container-fluid mt-5" >
+  <div class="row text-center align-items-center justify-content-center">
+    <div class="col ">
+      @if (accDetails.length>0){
+      <div>
+        <table class="table-striped table">
+          <thead>
+          <tr>
+            <th>S.no.</th>
+            <th>Account Type</th>
+            <th>Associated Organization</th>
+            <th>Account Name</th>
+            <th>Account Number</th>
+            <th>Recorded Date</th>
+            <th>Modified Date</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let account of accDetails; index as index">
+            <th>{{index+1}}</th>
+            <td>{{account.accountTypeName}}</td>
+            <td>{{account.accountAssociatedOrganizationName}}</td>
+            <td>{{account.accountName}}</td>
+            <td>{{account.accountNumber}}</td>
+            <td>{{account.recordedDate}}</td>
+            <td>{{account.modifiedDate}}</td>
+          </tr>
+          </tbody>
+        </table>
+        <button class="btn btn-danger" (click)="clearAccInfo()" >Clear Account Info</button>
+        <button class="btn btn-primary mx-2" (click)="navigateToUpdateAcc()" >Modify Account Info</button>
+      </div>
+      } @else {
+        <div class="col-6">
+          <h2>No account have been setup</h2>
+          <button class="btn btn-primary" routerLink="/admin/acc-details/setup">Click here to setup account</button>
+        </div>
+      }
+    </div>
+  </div>
+</div>
+<ngb-toast header="Manage Users" class="toast-container position-fixed py-3 top-0 end-0" *ngIf="showToast" (hidden)="showToast=false" [autohide]="true" [delay]="1000">{{this.toastMessage}}</ngb-toast>
+

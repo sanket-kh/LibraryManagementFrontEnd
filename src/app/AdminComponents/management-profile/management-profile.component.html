@@ -1,0 +1,63 @@
+<app-management-navbar class="position-sticky top-0" style="z-index: 1;"></app-management-navbar>
+<div class="container-fluid shadow col-6">
+  <div class="mt-5 text-center">
+    <h3 class="h3">Admin Details</h3>
+  </div>
+  <div class="container">
+    <div id="data" class="row ">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-6">
+            <div class="input-group">
+              <label class="form-label">FirstName:
+                <strong>
+                  {{ user.firstName }}
+                </strong>
+              </label>
+            </div>
+            <div class="input-group">
+              <label class="form-label">LastName:
+                <strong>
+                  {{ user.lastName }}
+                </strong>
+              </label>
+            </div>
+            <div class="input-group">
+              <label class="form-label">Address:
+                <strong>
+                  {{ user.address }}
+                </strong>
+              </label>
+            </div>
+            <div class="input-group">
+              <label class="form-label">Username:
+                <strong>
+                  {{ user.username }}
+                </strong>
+              </label>
+            </div>
+            <div class="input-group">
+              <label class="form-label">Email:
+                <strong>
+                  {{ user.email }}
+                </strong>
+              </label>
+            </div>
+            <div class="input-group">
+              <label class="form-label">Phone:
+                <strong>
+                  {{ user.phone }}
+                </strong>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row justify-content-center mt-2">
+        <button class="btn-primary btn col-3" (click)="navigateToAdminDetails()"> Edit Details</button>
+        <button class="btn btn-primary col-3 mx-3" (click)="navigateToChangePassword()"> Change Password</button>
+      </div>
+    </div>
+  </div>
+  <div class="mt-3 row"></div>
+</div>

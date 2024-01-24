@@ -1,0 +1,134 @@
+<app-management-navbar class="position-sticky top-0" style="z-index:1"></app-management-navbar>
+<div class="container-fluid col-5">
+  <div class="text-center text-info">
+    <h2 class="mt-5 fw-semibold">Setup New Admin</h2>
+  </div>
+  <div>
+    <form autocomplete="off" class="form-floating mt-5 shadow p-2 rounded-2" [formGroup]="registerForm"
+          (ngSubmit)="onSubmit()">
+      <!-- First Name input -->
+      <div class="form-outline mb-4 mt-3">
+        <label class="form-label" for="firstName">First Name:</label><small class="text-danger">*</small>
+        <input type="text" id="firstName" formControlName="firstName" class="form-control"/>
+        <small class="text-danger small" *ngIf="firstname?.touched &&  firstname?.hasError('required')">Firstname is
+          required</small>
+        <small class="text-danger small"
+               *ngIf="firstname?.touched && (firstname?.hasError('noCapital') && firstname?.dirty)">First letter should
+          be capital</small>
+        <small class="text-danger input-group"
+               *ngIf="firstname?.touched && (firstname?.hasError('specialChar') && firstname?.dirty)">Name cannot
+          contain special characters</small>
+        <small class="text-danger input-group"
+               *ngIf="firstname?.touched && (firstname?.hasError('hasNumber') && firstname?.dirty)">Name cannot contain
+          numbers</small>
+        <small class="text-danger input-group"
+               *ngIf="firstname?.touched && (firstname?.hasError('trailingSpace') && firstname?.dirty)">Name cannot have
+          trailing spaces</small>
+        <small class="text-danger input-group"
+               *ngIf="firstname?.touched && (firstname?.hasError('extraSpaceBetween') && firstname?.dirty)">Name has
+          extra space in between</small>
+        <small class="text-danger input-group"
+               *ngIf="firstname?.touched && (firstname?.hasError('capitalBetween') && firstname?.dirty)">Add a space
+          between first name and middle name</small>
+      </div>
+
+      <!-- Last Name input -->
+      <div class="form-outline mb-4">
+        <label class="form-label" for="lastName">Last Name:</label><small class="text-danger">*</small>
+        <input type="text" id="lastName" formControlName="lastName" class="form-control"/>
+        <small class="text-danger small" *ngIf="lastName?.touched &&  lastName?.hasError('required')">Lastname is
+          required</small>
+        <small class="text-danger small"
+               *ngIf="lastName?.touched && (lastName?.hasError('noCapital') && lastName?.dirty)">First letter should be
+          capital</small>
+        <small class="text-danger input-group"
+               *ngIf="lastName?.touched && (lastName?.hasError('specialChar') && lastName?.dirty)">Lastname cannot
+          contain special characters</small>
+        <small class="text-danger input-group"
+               *ngIf="lastName?.touched && (lastName?.hasError('hasNumber') && lastName?.dirty)">Lastname cannot contain
+          numbers</small>
+        <small class="text-danger input-group"
+               *ngIf="lastName?.touched && (lastName?.hasError('trailingSpace') && lastName?.dirty)">Lastname cannot
+          have trailing spaces</small>
+        <small class="text-danger input-group"
+               *ngIf="lastName?.touched && (lastName?.hasError('capitalBetween') && lastName?.dirty)">Cant have capital
+          letter between lastname</small>
+
+      </div>
+
+
+      <!-- Username input -->
+      <div class=" mb-4">
+        <label class="form-label" for="username">Username:</label><small class="text-danger">*</small>
+        <input type="text" id="username" formControlName="username" class="form-control"/>
+        <small class="text-danger small" *ngIf="username?.touched &&  username?.hasError('required')">Username is
+          required</small>
+        <small class="text-danger"
+               *ngIf="username?.touched && (username?.hasError('minlength') && username?.dirty)">username must be at
+          least 3 character</small>
+        <small class="text-danger input-group"
+               *ngIf="username?.touched && (username?.hasError('trailingSpace') && username?.dirty)">username cannot
+          have trailing spaces</small>
+      </div>
+
+      <!-- Email input -->
+      <div class=" mb-4">
+        <label class="form-label" for="email">Email:</label><small class="text-danger">*</small>
+        <input type="email" id="email" formControlName="email" class="form-control"/>
+        <small class="text-danger small" *ngIf="email?.touched &&  email?.hasError('required') && !email?.dirty">Username is
+          required</small>
+        <small class="text-danger"
+               *ngIf="email?.touched && (email?.errors && email?.dirty)">Email is invalid (eg.
+          example&#64;ex.com)</small>
+      </div>
+
+      <!-- Password input -->
+      <div class="form-outline mb-4">
+        <label class="form-label" for="password">Password:</label><small class="text-danger">*</small>
+        <input type="password" id="password" formControlName="password" class="form-control"/>
+        <small class="text-danger" *ngIf="password?.touched && password?.hasError('required')"
+        >Password is required</small>
+        <small class="text-danger input-group" *ngIf="password?.touched && (password?.hasError('minlength') && password?.dirty)"
+        >Password must be at least 8 characters long</small>
+        <small class="text-danger input-group" *ngIf="password?.touched && (password?.hasError('noSpecialChar') && password?.dirty)"
+        >Password must contain at least one special character</small>
+        <small class="text-danger input-group" *ngIf="password?.touched && (password?.hasError('noNumber') && password?.dirty)"
+        >Password must contain at least one number</small>
+      </div>
+
+      <!--Confirm Password input -->
+      <div class="form-outline mb-4">
+        <label class="form-label" for="confirmPassword">Confirm Password:</label><small class="text-danger">*</small>
+        <input type="password" id="confirmPassword" formControlName="confirmPassword" class="form-control"/>
+        <small class="text-danger" *ngIf="confirmPassword?.errors && confirmPassword?.touched && confirmPassword?.dirty"
+        >The password doesnt match</small>
+      </div>
+
+      <!-- phone input -->
+      <div class="form-outline mb-4">
+        <label class="form-label" for="phone">Phone:</label><small class="text-danger">*</small>
+        <input type="text" id="phone" appNoAlphabets  appNoSpecialChar [appMaxLength]="10" formControlName="phone" class="form-control"/>
+        <small class="text-danger" *ngIf="phone?.hasError('required') && phone?.touched">Phone number is required</small>
+        <small class="text-danger input-group" *ngIf="phone?.errors && phone?.touched && !phone?.pristine && !phone?.hasError('required')">invalid phone number</small>
+      </div>
+      <!-- address input -->
+      <div class="form-outline mb-4">
+        <label class="form-label" for="phone">Address:</label><small class="text-danger">*</small>
+        <input type="text" id="address" formControlName="address" class="form-control"/>
+        <small class="text-danger" *ngIf="address?.hasError('required') && address?.touched">Address is required</small>
+        <small class="text-danger input-group" *ngIf="address?.hasError('pattern') && address?.touched && address?.dirty">please enter a valid
+          address</small>
+      </div>
+
+      <!-- Submit button -->
+      <div class="row align-content-lg-center">
+        <div class="col-3"></div>
+        <button type="submit" class="btn btn-primary col-6 " [disabled]="registerForm.invalid">Register</button>
+      </div>
+    </form>
+    <ngb-toast *ngIf="showToast" class="toast-container position-fixed top-0 end-0" [autohide]="true" [delay]="1000"
+               (hidden)="showToast=false">{{ this.toastMessage }}
+    </ngb-toast>
+  </div>
+</div>
+

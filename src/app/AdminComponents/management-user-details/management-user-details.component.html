@@ -1,0 +1,174 @@
+<app-management-navbar  class="position-sticky top-0" style="z-index: 1;"></app-management-navbar>
+<div class="container-fluid mt-5">
+  <div class="row justify-content-center">
+    <div class="col-8">
+
+
+      <accordion [isAnimated]="true">
+        <accordion-group heading="User Details">
+          <div class="container">
+            <div class="row justify-content-center">
+              <div class="col-7">
+                <div class="input-group">
+                  <label class="form-label">FirstName:
+                    <strong>
+                      {{ user.firstName }}
+                    </strong>
+                  </label>
+                </div>
+                <div class="input-group">
+                  <label class="form-label">LastName:
+                    <strong>
+                      {{ user.lastName }}
+                    </strong>
+                  </label>
+                </div>
+                <div class="input-group">
+                  <label class="form-label">Address:
+                    <strong>
+                      {{ user.address }}
+                    </strong>
+                  </label>
+                </div>
+                <div class="input-group">
+                  <label class="form-label">Username:
+                    <strong>
+                      {{ user.username }}
+                    </strong>
+                  </label>
+                </div>
+                <div class="input-group">
+                  <label class="form-label">Email:
+                    <strong>
+                      {{ user.email }}
+                    </strong>
+                  </label>
+                </div>
+                <div class="input-group">
+                  <label class="form-label">Phone:
+                    <strong>
+                      {{ user.phone }}
+                    </strong>
+                  </label>
+                </div>
+                <div class="input-group">
+                  <label class="form-label">Locked:
+                    <span *ngIf="user.isNotLocked" class="badge bg-success">
+                      No
+                    </span><span *ngIf="!user.isNotLocked" class="badge bg-danger">
+                      Yes
+                    </span>
+                  </label>
+                </div>
+                <div class="input-group" *ngIf="user.remark!=null">
+                  <label class="form-label">Remark:
+                    @if (user.remark){
+                    <strong>
+                    {{user.remark}}
+                    </strong>
+                    } @else {
+                      <strong>
+                        N/A
+                      </strong>
+                    }
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </accordion-group>
+      </accordion>
+
+
+      <accordion [isAnimated]=true class="mt-5">
+        <accordion-group panelClass="panelHeading" heading="Borrowed Books">
+          <table class="table table-striped" *ngIf="borrowedBookList">
+            <thead>
+            <tr>
+              <th>S.No.</th>
+              <th>ISBN</th>
+              <th>TITLE</th>
+              <th>AUTHOR</th>
+              <th>OverDue</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let book of borrowedBookList ; index as index ">
+              <th>{{ index + 1 | number }}</th>
+              <td>{{ book?.isbn }}</td>
+              <td>{{ book?.title }}</td>
+              <td>{{ book?.author }}</td>
+              <td>{{ book?.overdue }}</td>
+
+            </tr>
+            </tbody>
+          </table>
+          <h4 *ngIf="!borrowedBookList">No Books Borrowed</h4>
+        </accordion-group>
+      </accordion>
+
+
+      <accordion *ngIf="userFineDtos.length>0" class="mt-5" [isAnimated]="true">
+        <accordion-group heading="Fines Owed">
+          <table class="table table-striped">
+            <thead>
+            <tr>
+              <th>S.No.</th>
+              <th>ISBN</th>
+              <th>TITLE</th>
+              <th>OverDue</th>
+              <th>Amount</th>
+              <th>Clear</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let fine of userFineDtos ; index as i ">
+              <th>{{ i + 1 | number }}</th>
+              <td>{{ fine?.isbn }}</td>
+              <td>{{ fine?.title }}</td>
+              <td>{{ fine?.overDue }}</td>
+              <td>{{ fine?.amount }}</td>
+              <td>
+                <button type="button" (click)="onClearClick(fine)" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#qrModal">
+                  Clear
+                </button>
+              </td>
+            </tr>
+
+            </tbody>
+          </table>
+        </accordion-group>
+      </accordion>
+      <div class="modal fade" id="qrModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="qrModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="qrModalLabel">Select Account Type</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="onClose()" ></button>
+            </div>
+            <div class="modal-body">
+              <label class="form-label">Account Type:</label><small class="text-danger">*</small>
+              <ng-select id="accountTypeSelect" [clearable]="true" (change)="onSelect()" [(ngModel)]="selectedAccType" >
+                <ng-option *ngFor="let type of accTypes" [value]="type">{{type}}
+                </ng-option>
+              </ng-select>
+            </div>
+            <div id="qr-code" class="text-center">
+              <h3>{{accDetails?.accountAssociatedOrganizationName}}</h3>
+              <h3 *ngIf="accDetails?.accountAssociatedOrganizationName"> Book: <strong>{{ selectedBook }}</strong> </h3>
+              <h3 *ngIf="accDetails?.accountAssociatedOrganizationName">Amount:<strong>Rs {{ clearFineReq.amount }}</strong></h3>
+              <qrcode *ngIf="qrDetails.length>0" [qrdata]="qrDetails" imageSrc="assets/istockphoto-1159322968-612x612.jpg"></qrcode>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="onClose()">Close</button>
+              <button *ngIf="this.qrDetails" type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="onConfirmPayment()">Payment Confirmed</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+<ngb-toast class="toast-container top-0 end-0 p-3" *ngIf="this.showToast" [autohide]="true" [delay]="1000" (hidden)="showToast=false" >{{toastMessages}}</ngb-toast>

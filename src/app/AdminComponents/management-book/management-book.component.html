@@ -1,0 +1,82 @@
+<app-management-navbar class="position-sticky top-0" style="z-index: 1;"></app-management-navbar>
+
+
+
+
+<div class="container text-center mt-5">
+  <form [formGroup]="this.searchFilter" (ngSubmit)="searchBooks()">
+    <div class="btn-group shadow p-3 justify-content-evenly d-inline">
+          <input type="text" appNoAlphabets appNoSpecialChar [appMaxLength]="13" formControlName="isbn" placeholder="ISBN" class="col-2 rounded border-1" maxlength="13">
+      <input type="text" appNoSpecialChar formControlName="title" placeholder="TITLE" class="col-2 mx-5 rounded border-1">
+      <input type="text" appNoSpecialChar formControlName="author" placeholder="AUTHOR" class=" col-2 rounded border-1">
+      <button type="submit" class="btn btn-primary mx-5 rounded-pill">Search</button>
+      <button class="btn btn-secondary rounded-pill" (click)="onClear()"> Clear</button>
+    </div>
+  </form>
+
+  <div class="container-fluid mt-5">
+    <div class="row justify-content-center">
+      <div class="col-10 bg-body-tertiary">
+      </div>
+    </div>
+  </div>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <button class="btn btn-primary" routerLink="/admin/new-book"> Add New Book</button>
+        <button class="btn-primary btn mx-4" routerLink="/admin/add-existing">Add Existing Book</button>
+    </div>
+  </div>
+</div>
+
+
+  <div class="row mt-5" infinite-scroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="500"
+  (scrolled)="onScrolled()">
+    <h3 class="h3" *ngIf="notFound">No Books found</h3>
+    <table class="table table-striped" *ngIf="bookList.length>0">
+      <thead>
+      <tr>
+        <th>S.No.</th>
+        <th>ISBN</th>
+        <th>TITLE</th>
+        <th>AUTHOR</th>
+        <th>COPIES</th>
+        <th>Action</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let book of this.bookList; index as i">
+        <th>{{ i + 1 }}</th>
+        <td>{{ book.isbn }}</td>
+        <td>{{ book.title }}</td>
+        <td>{{ book.author }}</td>
+        <td>{{book.copies}}</td>
+        <td>
+          @if (book.isAvailable){
+          <button class="btn btn-danger " (click)="setBook(book)" data-bs-target="#modal" data-bs-toggle="modal">
+            Make Unavailable
+          </button>} @else {
+            <button class="btn btn-primary" (click)="setBook(book)" data-bs-target="#modal" data-bs-toggle="modal">
+              Make Available
+            </button>
+          }
+          <button class="btn btn-primary col-4 mx-2" (click)="navigateToModifyBook(book)">
+            Modify
+          </button>
+
+        </td>
+      </tr>
+      </tbody>
+    </table>
+    <app-modal body="Are you sure you want to make unavailable:{{selectedBook.title}} ? " heading="Book Availability" [button]="true"
+              (buttonClicked)="changeAvailability(selectedBook)" buttonText="yes"></app-modal>
+
+
+        <ngb-toast *ngIf="showToast" class="toast-container position-fixed top-0 end-0" header="Book Availability" [autohide]="true" [delay]="2000"
+        (hidden)="showToast=false">
+          {{ toastMessage }}
+        </ngb-toast>
+
+
+  </div>
+</div>

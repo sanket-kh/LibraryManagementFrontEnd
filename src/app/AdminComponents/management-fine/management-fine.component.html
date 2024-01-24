@@ -1,0 +1,70 @@
+<app-management-navbar  class="position-sticky top-0" style="z-index: 1;" ></app-management-navbar>
+
+<div class="container-fluid mt-5">
+  <div class="row text-center">
+    <div class="col">
+      <button class="btn btn-primary" [disabled]="!buttonActive" (click)="this.getAllFines()">View All Fines</button>
+      <button class="btn-primary btn mx-4" [disabled]="buttonActive" (click)="this.getAllUnpaidFines()">View Unpaid
+        Fines
+      </button>
+    </div>
+  </div>
+</div>
+
+
+<div class="container-fluid mt-5">
+  <div class="row text-center">
+    <div class="col">
+      @if (finesDto.length>0){
+      <table class="table table-striped">
+        <thead>
+        <tr>
+          <th>S.No.</th>
+          <th>USERNAME</th>
+          <th>FIRST NAME</th>
+          <th>LAST NAME</th>
+          <th>ISBN</th>
+          <th>TITLE</th>
+          <th>OVERDUE</th>
+          <th>AMOUNT</th>
+          <th>PAID</th>
+          <th *ngIf="buttonActive">Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let fine of finesDto ; index as index ">
+          <th>{{ index + 1 | number }}</th>
+          <td>{{ fine?.username }}</td>
+          <td>{{ fine?.firstName }}</td>
+          <td>{{ fine?.lastName }}</td>
+          <td>{{ fine?.isbn }}</td>
+          <td>{{ fine?.title }}</td>
+          <td>{{ fine?.overDue }}</td>
+          <td>{{ fine?.amount }}</td>
+          @if (fine.isPaid){
+          <td><span class="badge bg-success">Yes</span></td>
+          } @else {
+            <td><span class="badge bg-danger">No</span></td>
+          }
+          <td *ngIf="buttonActive">
+            <button class="btn btn-danger" data-bs-target="#modal"
+                    data-bs-toggle="modal" (click)="clearSelectedFine(fine)">clear
+            </button>
+          </td>
+
+        </tr>
+        </tbody>
+      </table>
+      } @else {
+        <h3 class="h3">No Unpaid fines! </h3>
+      }
+    </div>
+  </div>
+  <app-modal [button]="true" buttonText="confirm" body="Are you sure you want to clear the fine?"
+  (buttonClicked)="confirmClearFine()"
+  ></app-modal>
+  <ngb-toast class="toast-container top-0 end-0 p-3" *ngIf="this.showToast" [autohide]="true" [delay]="1000" (hidden)="showToast=false">{{this.toastMessages}}</ngb-toast>
+</div>
+
+
+

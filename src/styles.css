@@ -1,5 +1,18 @@
+@import "@ng-select/ng-select/themes/default.theme.css";
+
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
+
+.toast-pos {
+  position: page;
+  top: 90px;
+  right: 0;
+  width: 200px;
+  height: 100px;
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

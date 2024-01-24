@@ -1,0 +1,106 @@
+<app-management-navbar class="position-sticky top-0" style="z-index: 1;"></app-management-navbar>
+
+<div class="container text-center mt-5">
+  <div class="btn-group shadow p-3 justify-content-evenly d-inline">
+    <input type="text" [(ngModel)]="searchUsername" placeholder="USERNAME" class=" col-2 rounded border-1">
+    <button type="button" class="btn btn-primary mx-2 rounded-pill" (click)="searchUser()">Search</button>
+    <button type="button" class="btn btn-secondary mx-2 rounded-pill" (click)="searchUsername=''">Clear</button>
+  </div>
+
+
+  <div class="container-fluid mt-5">
+    <div class="row">
+      <div class="col">
+        <button class="btn btn-primary" (click)="getLockedUsers() " [disabled]="!lockedUserButton" > See Locked Users</button>
+        <button class="btn btn-primary mx-3" (click)="getAllUsers()" [disabled]="!allUserButton" > See All Users</button>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="row mt-5">
+    @if (!userList) {
+      <h3 class="h3">No Users</h3>
+    }
+    @if (userList) {
+      <table class="table table-striped">
+        <thead>
+        <tr>
+          <th>S.No.</th>
+          <th>USERNAME</th>
+          <th>FIRST NAME</th>
+          <th>LAST NAME</th>
+          <th>ADDRESS</th>
+          <th>EMAIL</th>
+          <th>ROLE</th>
+          <th>LOCKED</th>
+          @if (showRemark){
+          <th>REMARK</th>
+          }
+          <th>ACTIONS</th>
+        </tr>
+        </thead>
+        <tbody>
+          @for (user of userList; track user; let i = $index) {
+            <tr>
+              <th>{{ i + 1 }}</th>
+              <td>{{ user.username }}</td>
+              <td>{{ user.firstName }}</td>
+              <td>{{ user.lastName }}</td>
+              <td>{{ user.address }}</td>
+              <td>{{ user.email }}</td>
+              <td>{{user.role}}</td>
+              <td>
+                @if (user.isNotLocked){
+                <span class="badge bg-success">No</span>
+                } @else {
+                  <span class="badge bg-danger">Yes</span>
+                }
+              </td>
+              @if (showRemark){
+              <td>{{user.remark}}</td>}
+              <td>
+                @if (user.isNotLocked) {
+                  <button class="btn btn-danger " (click)="lockUser(user)" data-bs-target="#remarkModal"
+                          data-bs-toggle="modal">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-lock-fill" viewBox="0 0 16 16">
+                      <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2m3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2"/>
+                    </svg>
+                  </button>
+                } @else {
+                  <button class="btn btn-primary" (click)="unlockUser(user)" data-bs-target="#modal"
+                          data-bs-toggle="modal">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-unlock-fill" viewBox="0 0 16 16">
+                      <path d="M11 1a2 2 0 0 0-2 2v4a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h5V3a3 3 0 0 1 6 0v4a.5.5 0 0 1-1 0V3a2 2 0 0 0-2-2"/>
+                    </svg>
+                  </button>
+                }
+                <button class="btn btn-secondary mx-2" routerLink="/admin/user-details/{{user.username}}" >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
+                    <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0"/>
+                    <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7"/>
+                  </svg>
+                </button>
+              </td>
+            </tr>
+          }      </tbody>
+      </table>
+    }
+   <app-management-form-modal body="Are you sure you want to lock user: {{selectedUser.username}}"
+   heading="Lock User" (remark)="addRemark($event)"
+   ></app-management-form-modal>
+
+    <app-modal body="Are you sure you want to unlock user:{{selectedUser.username}}"
+    heading="Unlock User" [button]="true" buttonText="Confirm" (buttonClicked)="confirmUnlockUser()"
+    ></app-modal>
+
+    @if (showToast) {
+      <div class="toast-container top-0 end-0 position-fixed p-3">
+        <ngb-toast header="Manage Users" [autohide]="true" (hidden)="showToast=false" [delay]="2000">
+          {{ toastMessage }}
+        </ngb-toast>
+      </div>
+    }
+
+  </div>
+</div>

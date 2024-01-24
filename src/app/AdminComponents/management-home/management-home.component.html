@@ -1,0 +1,48 @@
+<app-management-navbar class="position-sticky top-0" style="z-index: 1;"></app-management-navbar>
+<div class="container-fluid">
+  <div class="row text-center mt-3">
+    <h2 class="h3 font-monospace text-dark-emphasis">Welcome To Admin Panel</h2>
+  </div>
+  <div class="row mt-5">
+    <div class="col mx-4 p-3 shadow">
+      <h4 class="text-center">USER STAT</h4>
+       <div class="container">
+        <div class="row ">
+          <div class="col-3"></div>
+          <div class="col">
+            <span class="row">Total Users:</span>
+            <span class="row">Locked Users:</span>
+          </div>
+          <div class="col">
+            <span class="row">{{ totalUserCount }}</span>
+            <span class="row">{{ totalLockedUserCount }}</span>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+    <div class="col mx-4 p-3 shadow">
+      <h4 class="text-center">BOOK STAT</h4>
+
+      <div class="container">
+        <div class="row ">
+          <div class="col-2"></div>
+          <div class="col">
+            <span class="row">Total Books:</span>
+            <span class="row">Available Books:</span>
+            <span class="row">Borrowed Books Total:</span>
+            <span class="row">Borrowed Books Unique:</span>
+          </div>
+
+          <div class="col-1">
+            <span class="row">{{ totalBookCount }}</span>
+            <span class="row">{{ availableBookCount }}</span>
+            <span class="row">{{ totalCurrentlyBorrowedBook }}</span>
+            <span class="row">{{ currentlyBorrowedUniqueBook }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

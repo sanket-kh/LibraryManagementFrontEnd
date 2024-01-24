@@ -1,0 +1,100 @@
+<app-management-navbar class="position-sticky top-0" style="z-index: 1;"></app-management-navbar>
+<div class="container-fluid mt-5">
+  <div class="row justify-content-center">
+    <div class="col-6">
+      <h3 class="h3 text-center">{{ pageTitle }}</h3>
+      <form [formGroup]="bookForm" (ngSubmit)="onSubmit()">
+        <div class="form-outline mb-4">
+          <label class="form-label" for="isbn">ISBN:</label>
+          <input type="text" appNoSpecialChar appNoAlphabets [maxlength]="13" id="isbn" formControlName="isbn" class="form-control"/>
+          <small class="text-danger small"
+                 *ngIf="isbn?.touched && isbn?.hasError('required') && !isbn?.dirty">ISBN is required</small>
+          <small class="text-danger small"
+                 *ngIf="isbn?.touched && isbn?.hasError('pattern') && isbn?.dirty">ISBN should be of 3 to 13 digits</small>
+<small class="text-danger small"
+                 *ngIf="isbn?.touched && isbn?.hasError('notNumber') && isbn?.dirty">Enter a valid number</small>
+
+        </div>
+
+        <div class="form-outline mb-4">
+          <label class="form-label" for="title">TITLE:</label>
+          <input appNoSpecialChar type="text" id="title" formControlName="title" class="form-control"/>
+          <small class="text-danger small"
+          *ngIf="title?.touched && title?.hasError('required')">Title is required</small>
+          <small class="text-danger small"
+                 *ngIf="title?.touched && (title?.hasError('noCapital') && title?.dirty)">First letter should
+            be capital</small>
+          <small class="text-danger input-group"
+                 *ngIf="title?.touched && (title?.hasError('specialChar') && title?.dirty)">Title cannot
+            contain special characters</small>
+          <small class="text-danger input-group"
+                 *ngIf="title?.touched && (title?.hasError('hasNumber') && title?.dirty)">Title cannot contain
+            numbers</small>
+          <small class="text-danger input-group"
+                 *ngIf="title?.touched && (title?.hasError('trailingSpace') && title?.dirty)">Title cannot have
+            trailing spaces</small>
+          <small class="text-danger input-group"
+                 *ngIf="title?.touched && (title?.hasError('extraSpaceBetween') && title?.dirty)">Title has
+            extra space in between</small>
+          <small class="text-danger input-group"
+                 *ngIf="title?.touched && (title ?.hasError('capitalBetween') && title?.dirty)">Add a space
+            between first name and middle name</small>
+        </div>
+
+        <div class="form-outline mb-4">
+          <label class="form-label" for="author">AUTHOR:</label>
+          <input type="text" id="author" formControlName="author" class="form-control"/>
+          <small class="text-danger small"
+                 *ngIf="author?.touched && (author?.hasError('noCapital') && author?.dirty)">First letter should
+            be capital</small>
+          <small class="text-danger input-group"
+                 *ngIf="author?.touched && (author?.hasError('specialChar') && author?.dirty)">Name cannot
+            contain special characters</small>
+          <small class="text-danger input-group"
+                 *ngIf="author?.touched && (author?.hasError('hasNumber') && author?.dirty)">Name cannot contain
+            numbers</small>
+          <small class="text-danger input-group"
+                 *ngIf="author?.touched && (author?.hasError('trailingSpace') && author?.dirty)">Name cannot have
+            trailing spaces</small>
+          <small class="text-danger input-group"
+                 *ngIf="author?.touched && (author?.hasError('extraSpaceBetween') && author?.dirty)">Name has
+            extra space in between</small>
+          <small class="text-danger input-group"
+                 *ngIf="author?.touched && (author?.hasError('capitalBetween') && author?.dirty)">Add a space
+            between first name and last name</small>
+        </div>
+
+        <div class="form-outline mb-4">
+          <label class="form-label" for="copies">COPIES:</label>
+          <input type="text" appNoAlphabets appNoSpecialChar [appMaxLength]="2" id="copies" max="99" formControlName="copies" class="form-control"/>
+          <small class="text-danger"
+                 *ngIf="copies?.errors && copies?.touched && copies?.dirty"
+          >copies should be of max 2 digits </small>
+        </div>
+
+        <button class="btn btn-primary" type="submit" [disabled]="this.bookForm.invalid">
+          Submit
+        </button>
+        <button *ngIf="newBookForm && bookForm.dirty" type="button" class="btn btn-primary mx-3"
+                (click)="bookForm.reset()">
+          Reset
+        </button>
+        <button type="button" class="btn btn-secondary col-3 mx-2" (click)="goBack()">Go back</button>
+
+      </form>
+    </div>
+    @if (true) {
+      <button id="modalButton"
+              style="color: transparent; background-color: transparent; border-color: transparent; cursor: default;"
+              data-bs-target="#modal" data-bs-toggle="modal"></button>
+    }
+  </div>
+  <app-modal body="You have unsaved changes in the form. Are you sure you want to leave page?"
+             [heading]="pageTitle" [button]="true" buttonText="yes" (buttonClicked)="confirmNavigation=true"
+  ></app-modal>
+
+  <ngb-toast class="toast-container position-fixed top-0 end-0 p-3" *ngIf="showToast" [autohide]="true"
+             (hidden)="showToast=false" [delay]="1000">{{ this.toastMessage }}
+  </ngb-toast>
+
+</div>
