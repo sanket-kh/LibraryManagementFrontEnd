@@ -4,12 +4,12 @@
 
 
 <div class="container text-center mt-5">
-  <form [formGroup]="this.searchFilter" (ngSubmit)="searchBooks()">
+  <form autocomplete="off" [formGroup]="this.searchFilter" (ngSubmit)="searchBooks()">
     <div class="btn-group shadow p-3 justify-content-evenly d-inline">
           <input type="text" appNoAlphabets appNoSpecialChar [appMaxLength]="13" formControlName="isbn" placeholder="ISBN" class="col-2 rounded border-1" maxlength="13">
       <input type="text" appNoSpecialChar formControlName="title" placeholder="TITLE" class="col-2 mx-5 rounded border-1">
       <input type="text" appNoSpecialChar formControlName="author" placeholder="AUTHOR" class=" col-2 rounded border-1">
-      <button type="submit" class="btn btn-primary mx-5 rounded-pill">Search</button>
+      <button type="submit" style="background-color: #99BC85; border: #99BC85" class="btn btn-primary mx-5 rounded-pill">Search</button>
       <button class="btn btn-secondary rounded-pill" (click)="onClear()"> Clear</button>
     </div>
   </form>
@@ -23,15 +23,14 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col">
-      <button class="btn btn-primary" routerLink="/admin/new-book"> Add New Book</button>
-        <button class="btn-primary btn mx-4" routerLink="/admin/add-existing">Add Existing Book</button>
+      <button class="btn btn-primary" style="background-color: #99BC85; border: #99BC85" routerLink="/admin/new-book"> Add New Book</button>
+        <button class="btn-primary btn mx-4" style="background-color: #99BC85; border: #99BC85" routerLink="/admin/add-existing">Add Existing Book</button>
     </div>
   </div>
 </div>
 
 
-  <div class="row mt-5" infinite-scroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="500"
-  (scrolled)="onScrolled()">
+  <div class="row mt-5">
     <h3 class="h3" *ngIf="notFound">No Books found</h3>
     <table class="table table-striped" *ngIf="bookList.length>0">
       <thead>
@@ -56,11 +55,11 @@
           <button class="btn btn-danger " (click)="setBook(book)" data-bs-target="#modal" data-bs-toggle="modal">
             Make Unavailable
           </button>} @else {
-            <button class="btn btn-primary" (click)="setBook(book)" data-bs-target="#modal" data-bs-toggle="modal">
+            <button class="btn btn-primary" style="background-color: #99BC85; border: #99BC85" (click)="setBook(book)" data-bs-target="#modal" data-bs-toggle="modal">
               Make Available
             </button>
           }
-          <button class="btn btn-primary col-4 mx-2" (click)="navigateToModifyBook(book)">
+          <button class="btn btn-primary col-4 mx-2" style="background-color: #99BC85; border: #99BC85" (click)="navigateToModifyBook(book)">
             Modify
           </button>
 

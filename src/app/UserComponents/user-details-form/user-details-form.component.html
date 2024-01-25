@@ -4,7 +4,7 @@
     <span class="display-4 fw-semibold">Update Details</span>
   </div>
   <div>
-    <form class="form-floating mt-5 shadow p-2 rounded-2" [formGroup]="updateDetailsForm" (ngSubmit)="onSubmit()">
+    <form autocomplete="off" class="form-floating mt-5 shadow p-2 rounded-2" [formGroup]="updateDetailsForm" (ngSubmit)="onSubmit()">
       <!-- First Name input -->
       <div class="form-outline mb-4 mt-3">
         <label class="form-label" for="firstName">First Name:</label>

@@ -6,13 +6,10 @@ import {ManageBookService} from "../../AdminComponents/services/ManageBookServic
 import {ModifyBookComponent} from "../../AdminComponents/modify-book/modify-book.component";
 import {AdminAccService} from "../../AdminComponents/services/AdminAccService";
 import {BookService} from "./book.service";
-import {ManageBookTransactionDto} from "../../AdminComponents/admin-modals/Dtos/ManageBookTransactionDto";
 import {DefaultResponse} from "../UserModals/responses/DefaultResponse";
 import {ManageUserService} from "../../AdminComponents/services/ManageUserService";
 import {ManageFineService} from "../../AdminComponents/services/ManageFineService";
-import {catchError, EMPTY, Observable, of} from "rxjs";
-import {HttpErrorResponse} from "@angular/common/http";
-import {UserFineComponent} from "../user-fine/user-fine.component";
+import {catchError, of} from "rxjs";
 import {FineService} from "./FineService";
 
 export const canActivateUserView = () => {
@@ -61,9 +58,7 @@ export const canActivateEditAdminDetailsUser = () => {
   }
 }
 export const canActivateEditBookDetails = () => {
-  let authService: AuthenticationService = inject(AuthenticationService);
   let router: Router = inject(Router)
-  let userService = inject(UserService)
   let bookService: ManageBookService = inject(ManageBookService)
   if (bookService.bookDto) {
     return true
@@ -91,7 +86,6 @@ export const userBookListResolver: ResolveFn<DefaultResponse> = (route, state) =
   return inject(BookService).getAllBooks(0)
 }
 export const userFineListResolver: ResolveFn<DefaultResponse> = (route, state) => {
-  let userService: UserService = inject(UserService)
   return inject(FineService).getUserFined().pipe(catchError((err)=>{
     return of(err.error.responseBody)
   }))
@@ -105,26 +99,22 @@ export const adminManageBooks: ResolveFn<DefaultResponse> = (route, state) => {
 export const adminManageUser: ResolveFn<DefaultResponse> = (route, state) => {
   return inject(ManageUserService).getAllUsers()
 }
+
 export const adminManageFine: ResolveFn<DefaultResponse> = (route, state) => {
   return inject(ManageFineService).getAllFineTransaction()
 }
+
 export const adminAccount: ResolveFn<DefaultResponse> = (route, state) => {
  return  inject(AdminAccService).getAccDetails().pipe(
    catchError(err => {
      return of(err.error.responseBody)
    } )
  )
+ }
 
-
-  }
 export const adminProfile: ResolveFn<DefaultResponse> = (route, state) => {
   return inject(UserService).getUserDetails()
 }
-
-
-
-
-
 
 export const canDeactivateBookForm: CanDeactivateFn<ModifyBookComponent> = (component, currentRoute, currentState, nextState) => {
   return component.canExit()

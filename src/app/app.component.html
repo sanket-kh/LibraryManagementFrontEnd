@@ -1,11 +1,11 @@
 <div style="min-height: 100vh; max-height: fit-content;display: flex; flex-direction: column;">
-  <app-header></app-header>
+  <app-header [headerColor]="headerColor"></app-header>
   <router-outlet></router-outlet>
 
   @if (showLoader) {
     <app-loading-page></app-loading-page>
   }
   <div style="flex-grow: 1;"></div>
-  <app-footer style="position: sticky; bottom: 0"></app-footer>
+  <app-footer [footerColor]="footerColor" style="position: sticky; bottom: 0"></app-footer>
 
 </div>

@@ -15,7 +15,7 @@ export class AdminAccDetailsComponent implements OnInit {
   router: Router = inject(Router)
   activatedRoute:ActivatedRoute = inject(ActivatedRoute)
   showToast: boolean = false
-  toastMessage: string = ''
+  toastMessage!: string
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(

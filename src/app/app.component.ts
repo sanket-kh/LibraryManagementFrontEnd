@@ -1,6 +1,7 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {Router, Event, NavigationStart, NavigationEnd, NavigationCancel} from "@angular/router";
+import {AuthenticationService} from "./UserComponents/services/authentication.service";
 
 @Component({
   selector: 'app-root',
@@ -12,6 +13,9 @@ export class AppComponent implements OnInit{
   modalService:NgbModal = inject(NgbModal)
   showLoader:boolean =false
   router:Router = inject(Router)
+  headerColor!:string
+  footerColor!:string
+  userService:AuthenticationService = inject(AuthenticationService)
   public open(modal:any){
     this.modalService.open(modal)
   }
@@ -22,6 +26,13 @@ export class AppComponent implements OnInit{
     this.showLoader = true
   }
   if (routerEvent instanceof NavigationEnd || routerEvent instanceof NavigationCancel){
+    if(this.userService.isAdmin()){
+      this.headerColor = '#99BC85'
+      this.footerColor ='#d4e7c6'
+    }else {
+      this.headerColor = '#0d6efd'
+      this.footerColor = '#9bc2ff'
+    }
     this.showLoader = false
   }
   })

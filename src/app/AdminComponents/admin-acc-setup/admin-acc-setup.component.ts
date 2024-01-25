@@ -186,7 +186,6 @@ export class AdminAccSetupComponent implements OnInit {
   }
 
   selected(account: AbstractControl<any>, i: number) {
-    console.log(account.get('accountTypeName')?.value)
     let type = account.get('accountTypeName')?.value
     this.getAccAssociatedOrganization(type, i)
     this.selectedAccountTypes[i] = type

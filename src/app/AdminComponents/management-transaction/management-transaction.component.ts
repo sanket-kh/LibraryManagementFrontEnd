@@ -87,10 +87,11 @@ export class ManagementTransactionComponent implements OnInit {
       this.getAllTransactions()
       return;
     }
+    this.searchTransactionReq = this.searchFilter?.value
+
     if (this.date?.value != ''){
       this.searchTransactionReq.date = this.setDate(this.date?.value)
     }
-    this.searchTransactionReq = this.searchFilter?.value
 
     if (this.searchTransactionReq.isbn == null && this.searchTransactionReq.username == '' && this.searchTransactionReq.date == '') {
       this.getAllTransactions();

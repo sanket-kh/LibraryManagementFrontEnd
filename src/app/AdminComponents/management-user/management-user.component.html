@@ -3,7 +3,7 @@
 <div class="container text-center mt-5">
   <div class="btn-group shadow p-3 justify-content-evenly d-inline">
     <input type="text" [(ngModel)]="searchUsername" placeholder="USERNAME" class=" col-2 rounded border-1">
-    <button type="button" class="btn btn-primary mx-2 rounded-pill" (click)="searchUser()">Search</button>
+    <button type="button" class="btn btn-primary mx-2 rounded-pill" style="background-color: #99BC85; border: #99BC85" (click)="searchUser()">Search</button>
     <button type="button" class="btn btn-secondary mx-2 rounded-pill" (click)="searchUsername=''">Clear</button>
   </div>
 
@@ -11,8 +11,8 @@
   <div class="container-fluid mt-5">
     <div class="row">
       <div class="col">
-        <button class="btn btn-primary" (click)="getLockedUsers() " [disabled]="!lockedUserButton" > See Locked Users</button>
-        <button class="btn btn-primary mx-3" (click)="getAllUsers()" [disabled]="!allUserButton" > See All Users</button>
+        <button class="btn btn-primary" style="background-color: #99BC85; border: #99BC85" (click)="getLockedUsers() " [disabled]="!lockedUserButton" > See Locked Users</button>
+        <button class="btn btn-primary mx-3" style="background-color: #99BC85; border: #99BC85" (click)="getAllUsers()" [disabled]="!allUserButton" > See All Users</button>
       </div>
     </div>
   </div>

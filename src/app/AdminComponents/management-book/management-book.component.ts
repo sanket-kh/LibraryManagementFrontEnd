@@ -1,4 +1,4 @@
-import {Component, inject, OnInit} from '@angular/core';
+import {Component, DoCheck, inject, OnInit} from '@angular/core';
 import {UserBookDto} from "../../UserComponents/UserModals/dtos/UserBookDto";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {UserService} from "../../UserComponents/services/userService";
@@ -9,6 +9,8 @@ import {ManageBookService} from "../services/ManageBookService";
 import {HttpErrorResponse} from "@angular/common/http";
 import {DefaultResponse} from "../../UserComponents/UserModals/responses/DefaultResponse";
 import {ActivatedRoute, Route, Router} from "@angular/router";
+import {response} from "express";
+import {error} from "@angular/compiler-cli/src/transformers/util";
 
 @Component({
   selector: 'app-management-book',
@@ -94,7 +96,6 @@ export class ManagementBookComponent implements OnInit {
         this.toastMessage = response.message as string
         this.showToast = true
         this.ngOnInit()
-
       },
       error: err => {
         let error: HttpErrorResponse = err
@@ -170,5 +171,5 @@ export class ManagementBookComponent implements OnInit {
     this.searchFilter.reset()
   }
 
-  protected readonly screenTop = screenTop;
+
 }

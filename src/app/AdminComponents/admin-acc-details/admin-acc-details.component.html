@@ -30,12 +30,12 @@
           </tbody>
         </table>
         <button class="btn btn-danger" (click)="clearAccInfo()" >Clear Account Info</button>
-        <button class="btn btn-primary mx-2" (click)="navigateToUpdateAcc()" >Modify Account Info</button>
+        <button class="btn btn-primary mx-2" style="background-color: #99BC85; border: #99BC85" (click)="navigateToUpdateAcc()" >Modify Account Info</button>
       </div>
       } @else {
         <div class="col-6">
           <h2>No account have been setup</h2>
-          <button class="btn btn-primary" routerLink="/admin/acc-details/setup">Click here to setup account</button>
+          <button class="btn btn-primary" style="background-color: #99BC85; border: #99BC85" routerLink="/admin/acc-details/setup">Click here to setup account</button>
         </div>
       }
     </div>

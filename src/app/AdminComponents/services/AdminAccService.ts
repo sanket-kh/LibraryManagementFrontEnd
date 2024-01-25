@@ -31,7 +31,7 @@ export class AdminAccService {
   }
 
   getOrgNamesByAccType(accTypeName:string): Observable<DefaultResponse> {
-    return this.httpClient.get<DefaultResponse>(this.getOrganizationNameByAccType, {params:{accountTypeName:accTypeName}})
+    return this.httpClient.get<DefaultResponse>(this.getOrganizationNameByAccType+'?accountTypeName='+accTypeName)
   }
 
   addAccDetails(accDetailsReq:AccDetailsReq[]): Observable<DefaultResponse> {

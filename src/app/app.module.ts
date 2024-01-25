@@ -57,6 +57,7 @@ import {LoadingPageComponent} from './loading-page/loading-page.component';
 import {QRCodeModule} from "angularx-qrcode";
 import {MaxLengthDirective} from "./directives/max-length.directive";
 import {NoAlphabetsDirective} from './directives/no-alphabets.directive';
+import { OnlineStatusComponent } from './online-status/online-status.component';
 
 @NgModule({
   declarations: [
@@ -93,7 +94,8 @@ import {NoAlphabetsDirective} from './directives/no-alphabets.directive';
     NoSpecialCharDirective,
     LoadingPageComponent,
     MaxLengthDirective,
-    NoAlphabetsDirective
+    NoAlphabetsDirective,
+    OnlineStatusComponent
 
 
   ],

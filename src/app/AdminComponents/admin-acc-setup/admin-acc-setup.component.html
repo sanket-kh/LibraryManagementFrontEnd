@@ -3,14 +3,14 @@
   <div class="row justify-content-center">
     <div class="col-4 shadow mt-5">
       <h2 class="text-center mt-3">Setup Admin Account</h2>
-      <form [formGroup]="accountDetails">
+      <form autocomplete="off" [formGroup]="accountDetails">
 
         <div>
           <div class="mt-3" formArrayName="accounts" *ngFor="let account of accounts.controls; let i = index">
             <div [formGroupName]="i" class="mt-5">
 
               <label class="form-label">Account Type:</label><small class="text-danger">*</small>
-              <ng-select (change)="selected(account, i)" (clear)="removeIndex(account,i)" [clearable]="false"  >
+              <ng-select formControlName="accountTypeName" (change)="selected(account, i)" (clear)="removeIndex(account,i)" [clearable]="false"  >
                 <ng-option *ngFor="let type of accTypesToShow" [value]="type">{{type}}
                 </ng-option>
               </ng-select>
@@ -47,7 +47,7 @@
               </div>
 
               <label class="form-label">Account Number:</label><small class="text-danger">*</small>
-              <input type="text" appNoAlphabets appNoSpecialChar class="form-control" formControlName="accountNumber">
+              <input type="text" [appMaxLength]="16" appNoAlphabets appNoSpecialChar class="form-control" formControlName="accountNumber">
               <small class="text-danger" *ngIf="accounts.controls[i].get('accountNumber')?.touched && accounts.controls[i].get('accountNumber')?.hasError('required') ">Account number is required.</small>
               <small class="text-danger" *ngIf="accounts.controls[i].get('accountNumber')?.touched && accounts.controls[i].get('accountNumber')?.hasError('pattern') && accounts.controls[i].get('accountNumber')?.dirty ">Account number should be 9 to 16 digits.</small>
 

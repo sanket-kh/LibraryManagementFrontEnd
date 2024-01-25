@@ -6,7 +6,7 @@
         <!-- Email input -->
         <div class="mb-4">
           <label class="form-label" for="username">Username</label>
-          <input type="text" name="username" id="username" class="form-control"  [(ngModel)]="loginRequest.username" #username=ngModel required [minlength]="minLength" [pattern]="RegexConstants.usernameRegex" />
+          <input type="text" name="username" id="username" class="form-control"  [(ngModel)]="loginRequest.username" #username=ngModel required [minlength]="minLength" />
 
         </div>
 
@@ -32,7 +32,7 @@
         <div class="row align-content-lg-center text-center">
           <small *ngIf="this.loginFailed && !username.pristine" class="alert-warning text-danger">{{defaultResponse.message}}</small>
           <div class="col-3"></div>
-          <button type="submit" class="btn btn-primary col-6" [disabled]="loginForm.invalid">Sign in</button>
+          <button type="submit" class="btn btn-primary col-6" >Sign in</button>
         </div>
       </form>
     </div>

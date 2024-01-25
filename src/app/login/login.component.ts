@@ -7,6 +7,8 @@ import {RegexConstants} from "../constants/regex-constants";
 import {LoginRequest} from "../UserComponents/UserModals/requests/LoginRequest";
 import {DefaultResponse} from "../UserComponents/UserModals/responses/DefaultResponse";
 import {AuthResponse} from "../UserComponents/UserModals/dtos/AuthResponse";
+import {HeaderComponent} from "../header/header.component";
+import {FooterComponent} from "../footer/footer.component";
 
 @Component({
   selector: 'app-login',
@@ -26,6 +28,9 @@ export class LoginComponent {
   loginFailed: Boolean = false;
   minLength: number = 3;
   authResponse:AuthResponse={}
+  color!: string;
+  headerComponent!:HeaderComponent
+  footerComponent!:FooterComponent
 
   onSubmit() {
     this.authenticationService.login(this.loginRequest).subscribe({
@@ -38,6 +43,8 @@ export class LoginComponent {
         sessionStorage.setItem('role', this.authResponse.role as string)
         console.log(sessionStorage.getItem('accessToken'))
         this.navigate()
+
+
       },
       error: err => {
         let error = new HttpErrorResponse(err)

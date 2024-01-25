@@ -1,10 +1,16 @@
-import { Component } from '@angular/core';
+import {Component, inject, Input, OnInit} from '@angular/core';
+import {AuthenticationService} from "../UserComponents/services/authentication.service";
 
 @Component({
   selector: 'app-footer',
   templateUrl: './footer.component.html',
   styleUrl: './footer.component.css'
 })
-export class FooterComponent {
+export class FooterComponent implements OnInit{
+  userService: AuthenticationService = inject(AuthenticationService)
+  @Input() footerColor!: string;
+  ngOnInit(): void {
+
+  }
 
 }

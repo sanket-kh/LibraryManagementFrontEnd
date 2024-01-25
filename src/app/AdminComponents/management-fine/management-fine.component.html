@@ -3,8 +3,8 @@
 <div class="container-fluid mt-5">
   <div class="row text-center">
     <div class="col">
-      <button class="btn btn-primary" [disabled]="!buttonActive" (click)="this.getAllFines()">View All Fines</button>
-      <button class="btn-primary btn mx-4" [disabled]="buttonActive" (click)="this.getAllUnpaidFines()">View Unpaid
+      <button class="btn btn-primary" style="background-color: #99BC85; border: #99BC85" [disabled]="!buttonActive" (click)="this.getAllFines()">View All Fines</button>
+      <button class="btn-primary btn mx-4" style="background-color: #99BC85; border: #99BC85" [disabled]="buttonActive" (click)="this.getAllUnpaidFines()">View Unpaid
         Fines
       </button>
     </div>
@@ -47,7 +47,7 @@
             <td><span class="badge bg-danger">No</span></td>
           }
           <td *ngIf="buttonActive">
-            <button class="btn btn-danger" data-bs-target="#modal"
+            <button class="btn btn-danger"  data-bs-target="#modal"
                     data-bs-toggle="modal" (click)="clearSelectedFine(fine)">clear
             </button>
           </td>

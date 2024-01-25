@@ -45,7 +45,7 @@ export class UserHomeComponent implements OnInit {
       }
 
     })
- //   this.getBorrowedBookNumber()
+    this.getBorrowedBookNumber()
   }
 
   confirmBurrow(borrowBook: UserBookDto) {

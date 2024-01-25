@@ -3,7 +3,7 @@
   <div class="row justify-content-center">
     <div class="col-6">
       <h3 class="h3 text-center">{{ pageTitle }}</h3>
-      <form [formGroup]="bookForm" (ngSubmit)="onSubmit()">
+      <form autocomplete="off" [formGroup]="bookForm" (ngSubmit)="onSubmit()">
         <div class="form-outline mb-4">
           <label class="form-label" for="isbn">ISBN:</label>
           <input type="text" appNoSpecialChar appNoAlphabets [maxlength]="13" id="isbn" formControlName="isbn" class="form-control"/>

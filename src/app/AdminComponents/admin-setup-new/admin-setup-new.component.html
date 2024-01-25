@@ -1,7 +1,7 @@
 <app-management-navbar class="position-sticky top-0" style="z-index:1"></app-management-navbar>
 <div class="container-fluid col-5">
   <div class="text-center text-info">
-    <h2 class="mt-5 fw-semibold">Setup New Admin</h2>
+    <h2 class="mt-5" style="color:#BFD8AF ">Setup New Admin</h2>
   </div>
   <div>
     <form autocomplete="off" class="form-floating mt-5 shadow p-2 rounded-2" [formGroup]="registerForm"
@@ -123,7 +123,7 @@
       <!-- Submit button -->
       <div class="row align-content-lg-center">
         <div class="col-3"></div>
-        <button type="submit" class="btn btn-primary col-6 " [disabled]="registerForm.invalid">Register</button>
+        <button type="submit" class="btn btn-primary col-6 " style="background-color: #99BC85; border: #99BC85" [disabled]="registerForm.invalid">Register</button>
       </div>
     </form>
     <ngb-toast *ngIf="showToast" class="toast-container position-fixed top-0 end-0" [autohide]="true" [delay]="1000"

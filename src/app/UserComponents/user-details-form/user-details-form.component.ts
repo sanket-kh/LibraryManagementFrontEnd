@@ -2,7 +2,6 @@ import {Component, inject, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {RegexConstants} from "../../constants/regex-constants";
 import {UserService} from "../services/userService";
-import {UserRegisterRequest} from "../UserModals/requests/UserRegisterRequest";
 import {HttpErrorResponse} from "@angular/common/http";
 import {DefaultResponse} from "../../AdminComponents/admin-modals/responses/DefaultResponse";
 import {Router} from "@angular/router";
