@@ -4,7 +4,7 @@ import {ManageBookService} from "../services/ManageBookService";
 import {FormControl, FormGroup} from "@angular/forms";
 import {SearchTransactionReq} from "../admin-modals/requests/SearchTransactionReq";
 import {DateDto} from "../admin-modals/Dtos/DateDto";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {DefaultResponse} from "../admin-modals/responses/DefaultResponse";
 
 @Component({
@@ -16,6 +16,7 @@ export class ManagementTransactionComponent implements OnInit {
   transactionList: ManageBookTransactionDto[] = []
   manageBookService: ManageBookService = inject(ManageBookService)
   activatedRoute:ActivatedRoute = inject(ActivatedRoute)
+  router:Router = inject(Router)
   currentPage: number = 0
   searchFilter: FormGroup = new FormGroup<any>({})
   searchTransactionReq: SearchTransactionReq = {}

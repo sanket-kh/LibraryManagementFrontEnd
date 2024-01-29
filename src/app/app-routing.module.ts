@@ -10,7 +10,7 @@ import {
   canActivateAdminView, canActivateEditAccDetails, canActivateEditAdminDetailsUser,
   canActivateEditBookDetails,
   canActivateEditUserDetailsUser,
-  canActivateUserView, canDeactivateBookForm, userBookListResolver, userFineListResolver, userTransactionResolver
+  canActivateUserView, userBookListResolver, userFineListResolver, userTransactionResolver
 } from "./UserComponents/services/routingService";
 import {ManagementHomeComponent} from "./AdminComponents/management-home/management-home.component";
 import {UserHomeComponent} from "./UserComponents/user-home/user-home.component";
@@ -40,6 +40,9 @@ import {
 import {AdminAccSetupComponent} from "./AdminComponents/admin-acc-setup/admin-acc-setup.component";
 import {AdminAccDetailsComponent} from "./AdminComponents/admin-acc-details/admin-acc-details.component";
 import {AdminSetupNewComponent} from "./AdminComponents/admin-setup-new/admin-setup-new.component";
+import {Home} from "@mui/icons-material";
+import {AdminRefreshPageComponent} from "./AdminComponents/admin-refresh-page/admin-refresh-page.component";
+import {UserRefreshPageComponent} from "./UserComponents/user-refresh-page/user-refresh-page.component";
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -52,15 +55,17 @@ const routes: Routes = [
       {path: 'edit-details', component: UserDetailsFormComponent, canActivate: [canActivateEditUserDetailsUser]},
       {path: 'change-password', component: ChangePasswordComponent, canActivate: [canActivateUserView]},
       {path: 'fines', component: UserFineComponent, canActivate: [canActivateUserView], resolve: {fineList:userFineListResolver}},
+      {path: 'refresh', component: UserRefreshPageComponent}
+
     ]
   },
   {
     path: 'admin', children: [
       {path: 'home', component: ManagementHomeComponent, canActivate: [canActivateAdminView]},
       {path: 'profile', component: ManagementProfileComponent, canActivate: [canActivateAdminView], resolve: {adminDetails:adminProfile}},
-      {path: 'transactions', component: ManagementTransactionComponent, canActivate: [canActivateAdminView], resolve: {transactionList:adminTransactionResolver}},
+      {path: 'transactions', component: ManagementTransactionComponent, canActivate:[canActivateAdminView], resolve: {transactionList:adminTransactionResolver}},
       {path: 'fines', component: ManagementFineComponent, canActivate: [canActivateAdminView], resolve: {fineList:adminManageFine}},
-      {path: 'manage-users', component: ManagementUserComponent, canActivate: [canActivateAdminView], resolve: {userList:adminManageUser}},
+      {path: 'manage-users', component: ManagementUserComponent, canActivate:[canActivateAdminView], resolve: {userList:adminManageUser}},
       {path: 'manage-books', component: ManagementBookComponent, canActivate: [canActivateAdminView], resolve: {bookList:adminManageBooks}},
       {path: 'modify-books', component: ModifyBookComponent, canActivate: [canActivateEditBookDetails]},
       {path: 'new-book', component: ModifyBookComponent, canActivate: [canActivateAdminView]},
@@ -71,17 +76,21 @@ const routes: Routes = [
       {path: 'acc-details/setup' , component: AdminAccSetupComponent , canActivate: [canActivateAdminView]},
       {path: 'acc-details', component: AdminAccDetailsComponent, canActivate: [canActivateAdminView], resolve: {accDetails:adminAccount}},
       {path: 'acc-details/modify', component: AdminAccSetupComponent, canActivate: [canActivateEditAccDetails]},
-      {path: 'setup-new', component: AdminSetupNewComponent, canActivate: [canActivateAdminView]}
+      {path: 'setup-new', component: AdminSetupNewComponent, canActivate: [canActivateAdminView]},
+      {path: 'refresh', component: AdminRefreshPageComponent}
     ]
   },
-  {path: '', component: LoginComponent}
+  {path:'', component:LoginComponent}
+
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  imports: [RouterModule.forRoot(routes,{enableTracing:true})],
+  exports: [RouterModule],
+  providers:[
+
+  ]
 })
 export class AppRoutingModule {
-  authService: AuthenticationService = inject(AuthenticationService)
 
 }

@@ -1,6 +1,14 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
-import {Router, Event, NavigationStart, NavigationEnd, NavigationCancel} from "@angular/router";
+import {
+  Router,
+  Event,
+  NavigationStart,
+  NavigationEnd,
+  NavigationCancel,
+  ActivatedRoute,
+  RoutesRecognized
+} from "@angular/router";
 import {AuthenticationService} from "./UserComponents/services/authentication.service";
 
 @Component({
@@ -8,33 +16,40 @@ import {AuthenticationService} from "./UserComponents/services/authentication.se
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
-export class AppComponent implements OnInit{
+export class AppComponent implements OnInit {
   title = 'library-application';
-  modalService:NgbModal = inject(NgbModal)
-  showLoader:boolean =false
-  router:Router = inject(Router)
-  headerColor!:string
-  footerColor!:string
-  userService:AuthenticationService = inject(AuthenticationService)
-  public open(modal:any){
+  modalService: NgbModal = inject(NgbModal)
+  showLoader: boolean = false
+  router: Router = inject(Router)
+  activatedRoute: ActivatedRoute = inject(ActivatedRoute)
+  headerColor!: string
+  footerColor!: string
+  userService: AuthenticationService = inject(AuthenticationService)
+
+  public open(modal: any) {
     this.modalService.open(modal)
   }
 
   ngOnInit(): void {
-  this.router.events.subscribe((routerEvent:Event)=>{
-  if (routerEvent instanceof NavigationStart){
-    this.showLoader = true
-  }
-  if (routerEvent instanceof NavigationEnd || routerEvent instanceof NavigationCancel){
-    if(this.userService.isAdmin()){
-      this.headerColor = '#99BC85'
-      this.footerColor ='#d4e7c6'
-    }else {
-      this.headerColor = '#0d6efd'
-      this.footerColor = '#9bc2ff'
-    }
-    this.showLoader = false
-  }
-  })
+    this.router.events.subscribe((routerEvent: Event) => {
+      if (routerEvent instanceof NavigationStart && routerEvent.url.startsWith('/admin')) {
+        this.showLoader = true
+
+        this.headerColor = '#99BC85'
+        this.footerColor = '#d4e7c6'
+
+      }
+      if ((routerEvent instanceof NavigationStart && !routerEvent.url.startsWith('/admin'))) {
+        this.showLoader = true
+        this.headerColor = '#0d6efd'
+        this.footerColor = '#9bc2ff'
+      }
+
+
+      if (routerEvent instanceof NavigationEnd || routerEvent instanceof NavigationCancel) {
+
+        this.showLoader = false
+      }
+    })
   }
 }

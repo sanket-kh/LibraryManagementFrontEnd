@@ -90,7 +90,7 @@
     }
   </div>
   <app-modal body="You have unsaved changes in the form. Are you sure you want to leave page?"
-             [heading]="pageTitle" [button]="true" buttonText="yes" (buttonClicked)="confirmNavigation=true"
+             [heading]="pageTitle" [button]="true" buttonText="yes" (buttonClicked)="navigationConfirmed()"
   ></app-modal>
 
   <ngb-toast class="toast-container position-fixed top-0 end-0 p-3" *ngIf="showToast" [autohide]="true"

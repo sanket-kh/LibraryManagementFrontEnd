@@ -1,39 +1,40 @@
 import {AuthenticationService} from "./authentication.service";
 import {inject} from "@angular/core";
-import {CanDeactivateFn, ResolveFn, Router} from "@angular/router";
+import {CanActivateFn, ResolveFn, Router} from "@angular/router";
 import {UserService} from "./userService";
 import {ManageBookService} from "../../AdminComponents/services/ManageBookService";
-import {ModifyBookComponent} from "../../AdminComponents/modify-book/modify-book.component";
 import {AdminAccService} from "../../AdminComponents/services/AdminAccService";
 import {BookService} from "./book.service";
 import {DefaultResponse} from "../UserModals/responses/DefaultResponse";
 import {ManageUserService} from "../../AdminComponents/services/ManageUserService";
 import {ManageFineService} from "../../AdminComponents/services/ManageFineService";
-import {catchError, of} from "rxjs";
+import {catchError, map, of} from "rxjs";
 import {FineService} from "./FineService";
 
-export const canActivateUserView = () => {
+export const canActivateUserView =async  () => {
   let authService: AuthenticationService = inject(AuthenticationService);
   let router: Router = inject(Router)
-  if (authService.isAuthenticated() && authService.isUser()) {
+  if ( authService.isAuthenticated() && authService.isUser()) {
     return true
   } else {
-    router.navigate(['/login']).then()
+    router.navigate(['user','refresh']).then()
     return false;
   }
 }
-export const canActivateAdminView = () => {
-  let authService: AuthenticationService = inject(AuthenticationService);
-  let router: Router = inject(Router)
-  if (authService.isAuthenticated() && !authService.isUser()) {
-    return true
-  } else {
-    router.navigate(['/login']).then()
-    return false;
-  }
+ export  const canActivateAdminView =  ()=> {
+  let authService: AuthenticationService = inject(AuthenticationService)
+   let router: Router = inject(Router)
+   return authService.canActivateAdmin().subscribe((auth)=>{
+     if(auth ){
+       return of(true)
+     }else {
+       router.navigate(['admin', 'refresh'])
+       return of(false)
+     }
+   })
 }
 
-export const canActivateEditUserDetailsUser = () => {
+export const canActivateEditUserDetailsUser =async () => {
   let authService: AuthenticationService = inject(AuthenticationService);
   let router: Router = inject(Router)
   let userService = inject(UserService)
@@ -45,11 +46,11 @@ export const canActivateEditUserDetailsUser = () => {
 
   }
 }
-export const canActivateEditAdminDetailsUser = () => {
+export const canActivateEditAdminDetailsUser =async () => {
   let authService: AuthenticationService = inject(AuthenticationService);
   let router: Router = inject(Router)
   let userService = inject(UserService)
-  if (!userService.userDetailsEmpty && authService.isAdmin()) {
+  if (!userService.userDetailsEmpty && await authService.isAdmin()) {
     return true
   } else {
     router.navigate(['admin', 'profile']).then()
@@ -57,7 +58,7 @@ export const canActivateEditAdminDetailsUser = () => {
 
   }
 }
-export const canActivateEditBookDetails = () => {
+export const canActivateEditBookDetails =async () => {
   let router: Router = inject(Router)
   let bookService: ManageBookService = inject(ManageBookService)
   if (bookService.bookDto) {
@@ -67,7 +68,7 @@ export const canActivateEditBookDetails = () => {
     return false
   }
 }
-export const canActivateEditAccDetails = () => {
+export const canActivateEditAccDetails =async () => {
   let authService: AuthenticationService = inject(AuthenticationService);
   let router: Router = inject(Router)
   let adminAccService = inject(AdminAccService)
@@ -116,6 +117,6 @@ export const adminProfile: ResolveFn<DefaultResponse> = (route, state) => {
   return inject(UserService).getUserDetails()
 }
 
-export const canDeactivateBookForm: CanDeactivateFn<ModifyBookComponent> = (component, currentRoute, currentState, nextState) => {
-  return component.canExit()
-}
+// export const canDeactivateBookForm: CanDeactivateFn<ModifyBookComponent> = (component, currentRoute, currentState, nextState) => {
+//   return component.canExit()
+// }

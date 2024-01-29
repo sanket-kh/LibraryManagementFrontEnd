@@ -6,6 +6,7 @@ import {Router} from "@angular/router";
 import {AddBookReq} from "../admin-modals/requests/AddBookReq";
 import {RegexConstants} from "../../constants/regex-constants";
 import {CustomValidatorService} from "../../UserComponents/services/CustomValidators";
+import {rejects} from "node:assert";
 
 @Component({
   selector: 'app-modify-book',
@@ -20,7 +21,7 @@ export class ModifyBookComponent implements OnInit {
   pageTitle?: string = 'Add New Book'
   isSubmitted: boolean = false
   bookReq: AddBookReq = {}
-  confirmNavigation: boolean = false
+  confirmNavigation!: Promise<boolean>
   toastMessage: string = ''
   showToast: boolean = false
   newBookForm: boolean = true
@@ -57,14 +58,17 @@ export class ModifyBookComponent implements OnInit {
     }
   }
 
-  canExit() {
-    if (!this.isSubmitted) {
-      //   const button: HTMLButtonElement = this.document.getElementById('modalButton') as HTMLButtonElement
-      //    button.click();
-      return this.confirmNavigation
-    }
-    return this.isSubmitted
-  }
+  // async canExit() {
+  //   if (!this.isSubmitted) {
+  //       const button: HTMLButtonElement = this.document.getElementById('modalButton') as HTMLButtonElement
+  //        button.click();
+  //       this.confirmNavigation = new Promise<boolean>((resolve, reject) => {
+  //       resolve = this.navigationConfirmed()
+  //       })
+  //     return await this.confirmNavigation;
+  //   }
+  //   return this.isSubmitted
+  // }
 
 
   populateValue() {
@@ -142,5 +146,11 @@ export class ModifyBookComponent implements OnInit {
 
   goBack() {
     this.router.navigate(['admin', 'manage-books'])
+  }
+
+  protected readonly Promise = Promise;
+
+  navigationConfirmed() {
+   return true
   }
 }
