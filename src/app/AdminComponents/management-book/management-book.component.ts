@@ -1,4 +1,4 @@
-import {Component, DoCheck, inject, OnInit} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {UserBookDto} from "../../UserComponents/UserModals/dtos/UserBookDto";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {UserService} from "../../UserComponents/services/userService";
@@ -8,9 +8,7 @@ import {BookDto} from "../admin-modals/Dtos/BookDto";
 import {ManageBookService} from "../services/ManageBookService";
 import {HttpErrorResponse} from "@angular/common/http";
 import {DefaultResponse} from "../../UserComponents/UserModals/responses/DefaultResponse";
-import {ActivatedRoute, Route, Router} from "@angular/router";
-import {response} from "express";
-import {error} from "@angular/compiler-cli/src/transformers/util";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-management-book',

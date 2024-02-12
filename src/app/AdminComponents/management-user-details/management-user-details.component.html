@@ -4,7 +4,7 @@
     <div class="col-8">
 
 
-      <accordion [isAnimated]="true">
+      <accordion [isAnimated]="true"  >
         <accordion-group heading="User Details">
           <div class="container">
             <div class="row justify-content-center">
@@ -148,7 +148,7 @@
             </div>
             <div class="modal-body">
               <label class="form-label">Account Type:</label><small class="text-danger">*</small>
-              <ng-select id="accountTypeSelect" [clearable]="true" (change)="onSelect()" [(ngModel)]="selectedAccType" >
+              <ng-select id="accountTypeSelect" [clearable]="false" (change)="onSelect()" [(ngModel)]="selectedAccType" >
                 <ng-option *ngFor="let type of accTypes" [value]="type">{{type}}
                 </ng-option>
               </ng-select>
@@ -161,7 +161,7 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="onClose()">Close</button>
-              <button *ngIf="this.qrDetails" type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="onConfirmPayment()">Payment Confirmed</button>
+              <button *ngIf="this.qrDetails" type="button"style="background-color: #99BC85; border: #99BC85" class="btn btn-primary" data-bs-dismiss="modal" (click)="onConfirmPayment()">Payment Confirmed</button>
             </div>
           </div>
         </div>

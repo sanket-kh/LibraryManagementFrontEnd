@@ -7,6 +7,8 @@ import {RegexConstants} from "../../constants/regex-constants";
 import {HttpErrorResponse} from "@angular/common/http";
 import {DefaultResponse} from "../admin-modals/responses/DefaultResponse";
 import {CustomValidatorService} from "../../UserComponents/services/CustomValidators";
+import {AccountTypes} from "../admin-modals/Dtos/AccountTypes";
+import {AccAssociatedOrgs} from "../admin-modals/Dtos/AccAssociatedOrgs";
 
 @Component({
   selector: 'app-admin-acc-setup',
@@ -165,7 +167,8 @@ export class AdminAccSetupComponent implements OnInit {
   getAccountTypes() {
     this.adminAccService.getAllAccTypes().subscribe({
       next: response => {
-        this.allAccountTypes = response.responseBody as string[]
+        let accountTypes:AccountTypes  = response.responseBody as AccountTypes
+        this.allAccountTypes = accountTypes.accountTypeNames as string[]
         console.log(this.allAccountTypes)
         this.updateAccTypesToShowList()
       }
@@ -175,7 +178,8 @@ export class AdminAccSetupComponent implements OnInit {
   getAccAssociatedOrganization(accountTypeName: string, index: number) {
     this.adminAccService.getOrgNamesByAccType(accountTypeName).subscribe({
       next: response => {
-        this.associatedOrganization[index] = response.responseBody as string[]
+        let accAssociatedOrgs:AccAssociatedOrgs  = response.responseBody as AccAssociatedOrgs
+        this.associatedOrganization[index] = accAssociatedOrgs.organizations as string[]
         console.log(this.associatedOrganization)
       }
     })

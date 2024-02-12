@@ -8,6 +8,7 @@ import {DefaultResponse} from "../UserModals/responses/DefaultResponse";
 import {SearchBookDto} from "../UserModals/dtos/SearchBookDto";
 import {BorrowBookReq} from "../UserModals/requests/BorrowBookReq";
 import {ActivatedRoute} from "@angular/router";
+import {addWarning} from "@angular-devkit/build-angular/src/utils/webpack-diagnostics";
 
 @Component({
   selector: 'app-user-home',
@@ -19,15 +20,17 @@ export class UserHomeComponent implements OnInit {
   bookService: BookService = inject(BookService)
   formBuilder: FormBuilder = inject(FormBuilder)
   userService: UserService = inject(UserService)
-  activatedRoute:ActivatedRoute = inject(ActivatedRoute)
   document: Document = inject(DOCUMENT)
+  activatedRoute: ActivatedRoute = inject(ActivatedRoute)
   pageNumber: number = 0
   notFound: boolean = false
   showToast: boolean = false
   defaultResponse?: DefaultResponse
-  borrowLimit:number=2
+  borrowedBooks!: UserBookDto[]
+  borrowLimit: number = 2
   searchInput: SearchBookDto = {}
   borrowBook: UserBookDto = {}
+  el!: ElementRef
   searchFilter: FormGroup = this.formBuilder.group({
     isbn: ['',],
     title: ['',],
@@ -36,16 +39,20 @@ export class UserHomeComponent implements OnInit {
   borrowBookMessage?: string;
 
   ngOnInit(): void {
-    this.activatedRoute.data.subscribe({
-      next: value => {
-       let response:DefaultResponse = value['bookList']
-        this.bookList = response.responseBody as UserBookDto[]
-      },error:err => {
-        this.bookList = []
-      }
+    this.getBorrowedBookNumber().then(data =>
+      this.activatedRoute.data.subscribe({
+        next: value => {
+          let response: DefaultResponse = value['bookList']
+          this.bookList = response.responseBody as UserBookDto[]
+        }, error: err => {
+          this.bookList = []
+        }
 
-    })
-    this.getBorrowedBookNumber()
+      })
+    );
+
+
+    // this.getBorrowedBookNumber()
   }
 
   confirmBurrow(borrowBook: UserBookDto) {
@@ -60,6 +67,7 @@ export class UserHomeComponent implements OnInit {
         this.borrowBookMessage = response.message
         this.showToast = true;
         this.borrowLimit--
+        this.ngOnInit()
       },
       error: err => {
         console.log(err)
@@ -71,20 +79,6 @@ export class UserHomeComponent implements OnInit {
     })
   }
 
-  // getAllBooks() {
-  //   this.bookService.getAllBooks(this.pageNumber).subscribe({
-  //       next: response => {
-  //         this.bookList = response.responseBody as UserBookDto[]
-  //         console.log(response)
-  //         console.log(this.bookList)
-  //       },
-  //       error: err => {
-  //         console.log(err)
-  //       }
-  //
-  //     }
-  //   )
-  // }
 
   searchBooks() {
     this.notFound = false;
@@ -123,18 +117,27 @@ export class UserHomeComponent implements OnInit {
     })
   }
 
-  getBorrowedBookNumber() {
-    this.bookService.getBorrowedBooksByUser(this.userService.getUsername()).subscribe({
-      next:response=>{
-        let borrowedBook:UserBookDto[] = response.responseBody as UserBookDto[]
-        this.borrowLimit =  2-borrowedBook.length
-      },error:err => {
-        this.borrowLimit=2
+  async getBorrowedBookNumber() {
+    this.bookService.getBooksBorrowedByUser().subscribe({
+      next: response => {
+        this.borrowedBooks = response.responseBody as UserBookDto[]
+        this.borrowLimit = 2 - this.borrowedBooks.length
+      }, error: err => {
+        this.borrowLimit = 2
       }
     })
   }
 
   onClear() {
     this.searchFilter.reset()
+  }
+
+
+  disableBorrowBook(book: UserBookDto): boolean {
+    // let disable = false;
+    if (this.borrowedBooks == undefined) {
+      return false;
+    }
+     return this.borrowedBooks.some(borrowedBook => book.isbn == borrowedBook.isbn )
   }
 }

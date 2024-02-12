@@ -21,6 +21,7 @@ export class BookService {
   private readonly returnBookUri:string = this.baseUri+'/return';
   private readonly borrowBookUri:string = this.baseUri+'/borrow';
   private readonly userTransactionUri:string=this.baseUri+'/user/transactions';
+  private readonly getBooksBorrowedByUserUri:string = this.baseUri+'/books/user/get-borrowed'
 
 
   getAllBooks(pageNo: number): Observable<DefaultResponse> {
@@ -34,6 +35,10 @@ export class BookService {
   getBorrowedBooksByUser(username: string): Observable<DefaultResponse> {
     return this.httpClient.get<DefaultResponse>(this.borrowedBookUri + '?username=' + username)
   }
+  getBooksBorrowedByUser(): Observable<DefaultResponse> {
+    return this.httpClient.get<DefaultResponse>(this.getBooksBorrowedByUserUri)
+  }
+
 
   returnBook(returnBook:ReturnBookReq):Observable<DefaultResponse> {
     return this.httpClient.post<DefaultResponse>(this.returnBookUri, returnBook)

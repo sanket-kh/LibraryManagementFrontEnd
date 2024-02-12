@@ -36,7 +36,7 @@
         <td>{{ book.title }}</td>
         <td>{{ book.author }}</td>
         <td>
-          <button class="btn btn-primary" (click)="confirmBurrow(book)" data-bs-target="#modal" data-bs-toggle="modal">
+            <button class="btn btn-primary" id="borrow" [disabled]="disableBorrowBook(book)" (click)="confirmBurrow(book)" data-bs-target="#modal" data-bs-toggle="modal">
             Borrow
           </button>
         </td>

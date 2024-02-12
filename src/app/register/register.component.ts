@@ -104,9 +104,9 @@ export class RegisterComponent implements OnInit {
       next: response => {
         this.toastMessage = response.message as string
         this.showToast = true
-        setTimeout(()=>{
-          this.router.navigate(['']).then()
-        },1000)
+        // setTimeout(()=>{
+        //   this.router.navigate(['']).then()
+        // },1000)
 
       },error:err => {
         let error = err as HttpErrorResponse

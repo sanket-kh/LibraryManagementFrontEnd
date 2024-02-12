@@ -6,6 +6,7 @@ import {SearchTransactionReq} from "../admin-modals/requests/SearchTransactionRe
 import {DateDto} from "../admin-modals/Dtos/DateDto";
 import {ActivatedRoute, Router} from "@angular/router";
 import {DefaultResponse} from "../admin-modals/responses/DefaultResponse";
+import {NgbCalendar, NgbDate} from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
   selector: 'app-management-transaction',
@@ -15,8 +16,9 @@ import {DefaultResponse} from "../admin-modals/responses/DefaultResponse";
 export class ManagementTransactionComponent implements OnInit {
   transactionList: ManageBookTransactionDto[] = []
   manageBookService: ManageBookService = inject(ManageBookService)
-  activatedRoute:ActivatedRoute = inject(ActivatedRoute)
-  router:Router = inject(Router)
+  activatedRoute: ActivatedRoute = inject(ActivatedRoute)
+  router: Router = inject(Router)
+  calendar = inject(NgbCalendar)
   currentPage: number = 0
   searchFilter: FormGroup = new FormGroup<any>({})
   searchTransactionReq: SearchTransactionReq = {}
@@ -26,17 +28,17 @@ export class ManagementTransactionComponent implements OnInit {
   ngOnInit(): void {
     this.currentPage = 0
     console.log(this.currentPage)
-     this.activatedRoute.data.subscribe(
-       (data)=>{
-         const response:DefaultResponse = data['transactionList'];
-         this.transactionList = response.responseBody as ManageBookTransactionDto[]
-       }
-     )
+    this.activatedRoute.data.subscribe(
+      (data) => {
+        const response: DefaultResponse = data['transactionList'];
+        this.transactionList = response.responseBody as ManageBookTransactionDto[]
+      }
+    )
     // this.getAllTransactions()
     this.searchFilter = new FormGroup<any>({
       isbn: new FormControl(null),
       username: new FormControl(''),
-      date: new FormControl<Date|string>('')
+      date: new FormControl<Date | string>('')
     })
   }
 
@@ -54,7 +56,6 @@ export class ManagementTransactionComponent implements OnInit {
     let dateString = date.year as string
     return dateString = date.year + "-" + date.month + "-" + date.day
   }
-
 
 
   get isbn() {
@@ -84,13 +85,13 @@ export class ManagementTransactionComponent implements OnInit {
   }
 
   searchTransactions(): void {
-    if(!this.searchFilter.dirty){
+    if (!this.searchFilter.dirty) {
       this.getAllTransactions()
       return;
     }
     this.searchTransactionReq = this.searchFilter?.value
 
-    if (this.date?.value != ''){
+    if (this.date?.value != '') {
       this.searchTransactionReq.date = this.setDate(this.date?.value)
     }
 
@@ -114,5 +115,9 @@ export class ManagementTransactionComponent implements OnInit {
 
   onClear() {
     this.searchFilter.reset()
+  }
+
+  getTodayDate() {
+    return this.calendar.getToday();
   }
 }

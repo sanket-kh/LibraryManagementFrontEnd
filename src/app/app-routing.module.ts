@@ -43,6 +43,7 @@ import {AdminSetupNewComponent} from "./AdminComponents/admin-setup-new/admin-se
 import {Home} from "@mui/icons-material";
 import {AdminRefreshPageComponent} from "./AdminComponents/admin-refresh-page/admin-refresh-page.component";
 import {UserRefreshPageComponent} from "./UserComponents/user-refresh-page/user-refresh-page.component";
+import {NotFoundPageComponent} from "./not-found-page/not-found-page.component";
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -80,12 +81,13 @@ const routes: Routes = [
       {path: 'refresh', component: AdminRefreshPageComponent}
     ]
   },
-  {path:'', component:LoginComponent}
+  {path:'', component:LoginComponent},
+  {path:'**', component:NotFoundPageComponent},
 
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes,{enableTracing:true})],
+  imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
   providers:[
 

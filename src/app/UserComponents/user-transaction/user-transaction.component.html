@@ -11,6 +11,7 @@
       <th>AUTHOR</th>
       <th>ISSUE DATE</th>
       <th>RETURN DATE</th>
+      <th>STATUS</th>
     </tr>
     </thead>
     <tbody>
@@ -21,7 +22,16 @@
     <td>{{ transaction.title }}</td>
     <td>{{ transaction.author }}</td>
     <td>{{ transaction.issuedDate }}</td>
-    <td>{{ transaction.returnDate }}</td>
+    @if(transaction.returnDate == undefined){
+      <td><strong class="mx-4">N/A</strong></td>
+    } @else {
+      <td>{{transaction.returnDate}}</td>
+    }
+    @if(transaction.returnDate == undefined){
+      <td><small class="badge bg-danger">Active</small></td>
+    } @else {
+      <td><small class="badge bg-success">Completed</small></td>
+    }
   </tr>
   }
   </tbody>

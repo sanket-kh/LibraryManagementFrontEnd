@@ -1,6 +1,6 @@
 import {AuthenticationService} from "./authentication.service";
 import {inject} from "@angular/core";
-import {CanActivateFn, ResolveFn, Router} from "@angular/router";
+import {ResolveFn, Router} from "@angular/router";
 import {UserService} from "./userService";
 import {ManageBookService} from "../../AdminComponents/services/ManageBookService";
 import {AdminAccService} from "../../AdminComponents/services/AdminAccService";
@@ -8,27 +8,29 @@ import {BookService} from "./book.service";
 import {DefaultResponse} from "../UserModals/responses/DefaultResponse";
 import {ManageUserService} from "../../AdminComponents/services/ManageUserService";
 import {ManageFineService} from "../../AdminComponents/services/ManageFineService";
-import {catchError, map, of} from "rxjs";
+import {catchError, of} from "rxjs";
 import {FineService} from "./FineService";
 
 export const canActivateUserView =async  () => {
   let authService: AuthenticationService = inject(AuthenticationService);
   let router: Router = inject(Router)
-  if ( authService.isAuthenticated() && authService.isUser()) {
-    return true
-  } else {
-    router.navigate(['user','refresh']).then()
-    return false;
-  }
+  return authService.canActivateUser().subscribe((auth)=>{
+    if(auth){
+      return of(true)
+    }else {
+      router.navigate(['user', 'refresh']).then()
+      return of(false)
+    }
+  })
 }
  export  const canActivateAdminView =  ()=> {
   let authService: AuthenticationService = inject(AuthenticationService)
    let router: Router = inject(Router)
    return authService.canActivateAdmin().subscribe((auth)=>{
-     if(auth ){
+     if(auth){
        return of(true)
      }else {
-       router.navigate(['admin', 'refresh'])
+       router.navigate(['admin', 'refresh']).then()
        return of(false)
      }
    })
@@ -50,7 +52,7 @@ export const canActivateEditAdminDetailsUser =async () => {
   let authService: AuthenticationService = inject(AuthenticationService);
   let router: Router = inject(Router)
   let userService = inject(UserService)
-  if (!userService.userDetailsEmpty && await authService.isAdmin()) {
+  if (!userService.userDetailsEmpty && authService.isAdmin()) {
     return true
   } else {
     router.navigate(['admin', 'profile']).then()

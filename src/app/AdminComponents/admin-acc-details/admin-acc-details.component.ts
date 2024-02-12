@@ -33,6 +33,7 @@ export class AdminAccDetailsComponent implements OnInit {
         this.toastMessage = response.message as string
         this.showToast = true
         this.getAdminAccDetails()
+        this.adminAccService.adminAccDetails = undefined
       }, error: err => {
         let response:DefaultResponse = err.error
         this.toastMessage = response.message as string

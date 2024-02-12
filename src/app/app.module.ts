@@ -1,4 +1,4 @@
-import {APP_INITIALIZER, NgModule} from '@angular/core';
+import {NgModule} from '@angular/core';
 import {BrowserModule, provideClientHydration} from '@angular/platform-browser';
 
 import {AppRoutingModule} from './app-routing.module';
@@ -58,10 +58,10 @@ import {QRCodeModule} from "angularx-qrcode";
 import {MaxLengthDirective} from "./directives/max-length.directive";
 import {NoAlphabetsDirective} from './directives/no-alphabets.directive';
 import {OnlineStatusComponent} from './online-status/online-status.component';
-import {canActivateUserView} from "./UserComponents/services/routingService";
-import {AuthenticationService} from "./UserComponents/services/authentication.service";
-import { AdminRefreshPageComponent } from './AdminComponents/admin-refresh-page/admin-refresh-page.component';
-import { UserRefreshPageComponent } from './UserComponents/user-refresh-page/user-refresh-page.component';
+import {AdminRefreshPageComponent} from './AdminComponents/admin-refresh-page/admin-refresh-page.component';
+import {UserRefreshPageComponent} from './UserComponents/user-refresh-page/user-refresh-page.component';
+import {NotFoundPageComponent} from "./not-found-page/not-found-page.component";
+
 
 @NgModule({
   declarations: [
@@ -101,7 +101,8 @@ import { UserRefreshPageComponent } from './UserComponents/user-refresh-page/use
     NoAlphabetsDirective,
     OnlineStatusComponent,
     AdminRefreshPageComponent,
-    UserRefreshPageComponent
+    UserRefreshPageComponent,
+    NotFoundPageComponent
 
 
   ],

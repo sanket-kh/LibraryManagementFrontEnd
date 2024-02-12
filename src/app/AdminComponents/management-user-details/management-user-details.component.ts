@@ -1,4 +1,4 @@
-import {Component, inject, OnInit, ViewChild} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {BookService} from "../../UserComponents/services/book.service";
 import {BorrowedBookDto} from "../../UserComponents/UserModals/dtos/BorrowedBookDto";
@@ -13,7 +13,8 @@ import {AdminAccDetailsDto} from "../admin-modals/Dtos/AdminAccDetailsDto";
 import {ClearFineReq} from "../admin-modals/requests/ClearFineReq";
 import {HttpErrorResponse} from "@angular/common/http";
 import {ManageFineService} from "../services/ManageFineService";
-import {NgSelectComponent} from "@ng-select/ng-select";
+import {AccountTypes} from "../admin-modals/Dtos/AccountTypes";
+import {error} from "@angular/compiler-cli/src/transformers/util";
 
 @Component({
   selector: 'app-management-user-details',
@@ -56,7 +57,6 @@ export class ManagementUserDetailsComponent implements OnInit {
       next: response => {
         console.log(response)
         this.userFineDtos = response.responseBody as UserFineDto []
-
       },error:err => {
         this.userFineDtos = []
       }
@@ -66,7 +66,8 @@ export class ManagementUserDetailsComponent implements OnInit {
   getAccountTypes() {
     this.adminAccService.getAllAccTypes().subscribe({
       next: response => {
-        this.accTypes = response.responseBody as string[]
+        let accountTypes:AccountTypes  = response.responseBody as AccountTypes
+        this.accTypes = accountTypes.accountTypeNames as string[]
         console.log(this.accTypes)
       }
     })
@@ -109,7 +110,9 @@ export class ManagementUserDetailsComponent implements OnInit {
       next: response => {
         this.accDetails = response.responseBody as AdminAccDetailsDto
         this.qrDetails = this.toQrDetails(this.accDetails)
-      }
+      },error:err => {
+      console.log(err)
+    }
     })
   }
 
