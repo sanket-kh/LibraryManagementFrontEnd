@@ -21,11 +21,11 @@
     <td>{{ transaction.isbn }}</td>
     <td>{{ transaction.title }}</td>
     <td>{{ transaction.author }}</td>
-    <td>{{ transaction.issuedDate }}</td>
+    <td>{{ transaction.issuedDate | date:"medium" }}</td>
     @if(transaction.returnDate == undefined){
       <td><strong class="mx-4">N/A</strong></td>
     } @else {
-      <td>{{transaction.returnDate}}</td>
+      <td>{{transaction.returnDate | date:"medium"}}</td>
     }
     @if(transaction.returnDate == undefined){
       <td><small class="badge bg-danger">Active</small></td>

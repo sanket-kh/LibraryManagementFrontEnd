@@ -1,5 +1,6 @@
+import {Dayjs} from "dayjs";
+
 export interface DateDto{
-  year?:string,
-  month?:string,
-  day?:string
+  fromDate:Dayjs;
+  toDate:Dayjs;
 }

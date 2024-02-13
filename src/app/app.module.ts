@@ -1,4 +1,4 @@
-import {NgModule} from '@angular/core';
+import {importProvidersFrom, NgModule} from '@angular/core';
 import {BrowserModule, provideClientHydration} from '@angular/platform-browser';
 
 import {AppRoutingModule} from './app-routing.module';
@@ -61,6 +61,7 @@ import {OnlineStatusComponent} from './online-status/online-status.component';
 import {AdminRefreshPageComponent} from './AdminComponents/admin-refresh-page/admin-refresh-page.component';
 import {UserRefreshPageComponent} from './UserComponents/user-refresh-page/user-refresh-page.component';
 import {NotFoundPageComponent} from "./not-found-page/not-found-page.component";
+import {ApwDaterangepickerBsModule} from "apw-daterangepicker-bs";
 
 
 @NgModule({
@@ -125,11 +126,12 @@ import {NotFoundPageComponent} from "./not-found-page/not-found-page.component";
     AccordionModule,
     QRCodeModule,
     NgbModalModule,
+    ApwDaterangepickerBsModule,
+
   ],
   providers: [
     provideClientHydration(),
     provideHttpClient(withInterceptors([authInterceptor]), withFetch()),
-
   ],
   bootstrap: [AppComponent]
 })

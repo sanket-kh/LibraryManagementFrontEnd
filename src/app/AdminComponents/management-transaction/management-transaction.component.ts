@@ -6,7 +6,8 @@ import {SearchTransactionReq} from "../admin-modals/requests/SearchTransactionRe
 import {DateDto} from "../admin-modals/Dtos/DateDto";
 import {ActivatedRoute, Router} from "@angular/router";
 import {DefaultResponse} from "../admin-modals/responses/DefaultResponse";
-import {NgbCalendar, NgbDate} from "@ng-bootstrap/ng-bootstrap";
+import {NgbCalendar} from "@ng-bootstrap/ng-bootstrap";
+import dayjs, {Dayjs} from "dayjs";
 
 @Component({
   selector: 'app-management-transaction',
@@ -24,21 +25,23 @@ export class ManagementTransactionComponent implements OnInit {
   searchTransactionReq: SearchTransactionReq = {}
   showToast: boolean = false;
   toastMessage: string = '';
+  datePickerConfig: any = {
+    format: 'YYYY-MM-D',
+    separator: ' to ',
+  };
 
   ngOnInit(): void {
     this.currentPage = 0
-    console.log(this.currentPage)
     this.activatedRoute.data.subscribe(
       (data) => {
         const response: DefaultResponse = data['transactionList'];
         this.transactionList = response.responseBody as ManageBookTransactionDto[]
       }
     )
-    // this.getAllTransactions()
     this.searchFilter = new FormGroup<any>({
       isbn: new FormControl(null),
       username: new FormControl(''),
-      date: new FormControl<Date | string>('')
+      date: new FormControl(''),
     })
   }
 
@@ -52,9 +55,15 @@ export class ManagementTransactionComponent implements OnInit {
     })
   }
 
-  setDate(date: DateDto): string {
-    let dateString = date.year as string
-    return dateString = date.year + "-" + date.month + "-" + date.day
+  setDate(date: DateDto) {
+    if(date.fromDate !== null && date.toDate !== null) {
+      this.searchTransactionReq.fromDate = date.fromDate.format('YYYY-MM-DD HH:mm:ss')
+      this.searchTransactionReq.toDate = date.toDate.format('YYYY-MM-DD HH:mm:ss')
+      if (this.searchTransactionReq.fromDate === this.searchTransactionReq.toDate) {
+        this.searchTransactionReq.toDate = undefined
+      }
+    }
+
   }
 
 
@@ -85,19 +94,20 @@ export class ManagementTransactionComponent implements OnInit {
   }
 
   searchTransactions(): void {
+    console.log(this.searchFilter)
     if (!this.searchFilter.dirty) {
       this.getAllTransactions()
       return;
     }
-    this.searchTransactionReq = this.searchFilter?.value
 
-    if (this.date?.value != '') {
-      this.searchTransactionReq.date = this.setDate(this.date?.value)
-    }
-
-    if (this.searchTransactionReq.isbn == null && this.searchTransactionReq.username == '' && this.searchTransactionReq.date == '') {
+    if (this.searchTransactionReq.isbn == null && this.searchTransactionReq.username == '' &&
+      this.searchTransactionReq.fromDate == null &&
+      this.searchTransactionReq.toDate == null) {
       this.getAllTransactions();
       return
+    }
+    if (this.date?.value !='') {
+      this.setDate(this.date?.value)
     }
 
     this.manageBookService.searchTransaction(this.searchTransactionReq).subscribe({
@@ -115,9 +125,13 @@ export class ManagementTransactionComponent implements OnInit {
 
   onClear() {
     this.searchFilter.reset()
+    this.searchFilter.markAsPristine()
+
   }
 
   getTodayDate() {
-    return this.calendar.getToday();
+    return dayjs();
   }
+
+  protected readonly dayjs = dayjs;
 }

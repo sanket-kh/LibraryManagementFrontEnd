@@ -1,5 +1,4 @@
 import {Component, inject, OnInit} from '@angular/core';
-import {UserFineDto} from "../../UserComponents/UserModals/dtos/UserFineDto";
 import {ManageFineService} from "../services/ManageFineService";
 import {PageResponse} from "../../UserComponents/UserModals/responses/PageResponse";
 import {ManageUserFineDto} from "../admin-modals/Dtos/ManageUserFineDto";

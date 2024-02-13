@@ -1,4 +1,4 @@
-import {inject, NgModule} from '@angular/core';
+import {importProvidersFrom, inject, NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {LoginComponent} from "./login/login.component";
 import {RegisterComponent} from "./register/register.component";
@@ -44,6 +44,7 @@ import {Home} from "@mui/icons-material";
 import {AdminRefreshPageComponent} from "./AdminComponents/admin-refresh-page/admin-refresh-page.component";
 import {UserRefreshPageComponent} from "./UserComponents/user-refresh-page/user-refresh-page.component";
 import {NotFoundPageComponent} from "./not-found-page/not-found-page.component";
+import {ApwDaterangepickerBsModule} from "apw-daterangepicker-bs";
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -90,7 +91,7 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
   providers:[
-
+importProvidersFrom(ApwDaterangepickerBsModule.forRoot())
   ]
 })
 export class AppRoutingModule {
