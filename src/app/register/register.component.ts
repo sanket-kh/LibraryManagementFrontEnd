@@ -99,20 +99,19 @@ export class RegisterComponent implements OnInit {
   onSubmit() {
     this.userRegisterRequest = this.registerForm.value;
     this.submitted = true
-    console.log(this.registerForm)
+    console.log(this.userRegisterRequest)
     this.userService.registerUser(this.userRegisterRequest).subscribe({
       next: response => {
         this.toastMessage = response.message as string
         this.showToast = true
-        // setTimeout(()=>{
-        //   this.router.navigate(['']).then()
-        // },1000)
+        setTimeout(()=>{
+          this.router.navigate(['']).then()
+        },1000)
 
       },error:err => {
         let error = err as HttpErrorResponse
         let response = error.error as DefaultResponse
         this.toastMessage = response.message as string
-        this.showToast = true
       }
     })
 

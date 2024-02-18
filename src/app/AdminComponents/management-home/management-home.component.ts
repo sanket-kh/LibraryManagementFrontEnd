@@ -1,6 +1,5 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {ReportStatService} from "../services/ReportStatService";
-import {response} from "express";
 import {UserService} from "../../UserComponents/services/userService";
 
 @Component({

@@ -120,7 +120,6 @@ export class ManagementUserComponent implements OnInit {
 
 
   addRemark($event: string) {
-    console.log($event)
     this.selectedUser.remark = $event
     this.confirmLockUser()
   }

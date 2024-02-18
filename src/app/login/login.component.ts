@@ -41,7 +41,6 @@ export class LoginComponent {
         sessionStorage.setItem('loggedIn', 'true')
         sessionStorage.setItem('username', this.loginRequest.username as string)
         sessionStorage.setItem('role', this.authResponse.role as string)
-        console.log(sessionStorage.getItem('accessToken'))
         this.navigate()
 
 

@@ -1,7 +1,7 @@
 import {Inject, inject, Injectable, PLATFORM_ID} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable, of} from "rxjs";
-import {DOCUMENT, isPlatformBrowser} from "@angular/common";
+import {DOCUMENT} from "@angular/common";
 import {LoginRequest} from "../UserModals/requests/LoginRequest";
 import {DefaultResponse} from "../UserModals/responses/DefaultResponse";
 

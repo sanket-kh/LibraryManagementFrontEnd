@@ -2,17 +2,21 @@
 
 <form [formGroup]="this.searchFilter" class="mt-5 text-center">
   <div class="btn-group shadow p-3 justify-content-evenly d-inline">
-    <input type="text" appNoAlphabets appNoSpecialChar [appMaxLength]="13" formControlName="isbn" placeholder="ISBN" class="col-2 rounded border-1" maxlength="13">
+    <input type="text" appNoAlphabets appNoSpecialChar [appMaxLength]="13" formControlName="isbn" placeholder="ISBN"
+           class="col-2 rounded border-1" maxlength="13">
     <input type="text" formControlName="username" placeholder="USERNAME" class="col-2 mx-5 rounded border-1">
-<!--    <input placeholder="YYYY-MM-DD" [readonly]="true" type="text" [maxDate]="getTodayDate()" ngbDatepicker #d="ngbDatepicker" class="rounded border-1" formControlName="date"  >-->
-<!--    <button  (click)="d.toggle()" class="btn btn-primary rounded mx-2 justify-content-evenly" style="height: 30px;background-color: #99BC85; border: #99BC85" ><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar" viewBox="0 0 16 16">-->
-<!--      <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z"/>-->
-<!--    </svg>-->
-<!--    </button>-->
+    <!--    <input placeholder="YYYY-MM-DD" [readonly]="true" type="text" [maxDate]="getTodayDate()" ngbDatepicker #d="ngbDatepicker" class="rounded border-1" formControlName="date"  >-->
+    <!--    <button  (click)="d.toggle()" class="btn btn-primary rounded mx-2 justify-content-evenly" style="height: 30px;background-color: #99BC85; border: #99BC85" ><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar" viewBox="0 0 16 16">-->
+    <!--      <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z"/>-->
+    <!--    </svg>-->
+    <!--    </button>-->
 
-    <input class="rounded-2 border-1" placeholder="DATE RANGE" [readonly]="true" type="text" [maxDate]="getTodayDate()" apwDaterangepickerBs [locale]="datePickerConfig" [autoApply]="true" startKey="fromDate"
-           endKey="toDate"  formControlName="date">
-    <button type="button" class="btn btn-primary mx-5 rounded-pill" style="background-color: #99BC85; border: #99BC85" (click)="searchTransactions()"><i class="bi bi-search"></i> Search</button>
+    <input class="rounded-2 border-1" placeholder="DATE RANGE" [readonly]="true" type="text" [maxDate]="getTodayDate()"
+           apwDaterangepickerBs [locale]="datePickerConfig" [autoApply]="true" startKey="fromDate"
+           endKey="toDate" formControlName="date">
+    <button type="button" class="btn btn-primary mx-5 rounded-pill" style="background-color: #99BC85; border: #99BC85"
+            (click)="searchTransactions()"><i class="bi bi-search"></i> Search
+    </button>
     <button type="button" class="btn btn-secondary rounded-pill" (click)="onClear()"> Clear</button>
   </div>
 </form>
@@ -42,10 +46,10 @@
           <td>{{ transaction.author }}</td>
           <td>{{ transaction.username }}</td>
           <td>{{ transaction.issuedDate | date:"medium" }}</td>
-          @if(transaction.returnDate == undefined){
-          <td><strong class="mx-4">N/A</strong></td>
+          @if (transaction.returnDate == undefined) {
+            <td><strong class="mx-4">N/A</strong></td>
           } @else {
-            <td>{{transaction.returnDate | date:"medium"}}</td>
+            <td>{{ transaction.returnDate | date:"medium" }}</td>
           }
         </tr>
       }
@@ -56,6 +60,13 @@
       <h3>No transactions found 🥹</h3>
     </div>
   </div>
+  <div class="toTop z-3">
+    <button id="topButton" *ngIf="showToTopButton" class="rounded-circle bi-arrow-up-circle " style="background-color: #99BC85; border: #99BC85;"
+            (click)="goToTop()">
 
-  <ngb-toast class="position-fixed end-0 top-0 toast-container p-3" *ngIf="showToast" [delay]="1000" [autohide]="true" (hidden)="showToast=false">{{this.toastMessage}}</ngb-toast>
+    </button>
+  </div>
+  <ngb-toast class="position-fixed end-0 top-0 toast-container p-3" *ngIf="showToast" [delay]="1000" [autohide]="true"
+             (hidden)="showToast=false">{{ this.toastMessage }}
+  </ngb-toast>
 </div>

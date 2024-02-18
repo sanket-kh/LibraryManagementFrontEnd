@@ -8,15 +8,20 @@ import {AuthenticationService} from "../UserComponents/services/authentication.s
   styleUrl: './not-found-page.component.css'
 })
 export class NotFoundPageComponent implements OnInit {
-  route!: string
   router: Router = inject(Router)
   authService:AuthenticationService = inject(AuthenticationService)
 
   ngOnInit() {
+
+  }
+
+  navigateToHome() {
     if (this.authService.isAdmin()) {
-      this.route = '/admin/home'
+      this.router.navigate(['admin','home']).then()
     }else if (this.authService.isUser()){
-      this.route = '/user/home'
+      this.router.navigate(['user','home']).then()
+    }else {
+      this.router.navigate(['']).then()
     }
   }
 }

@@ -100,7 +100,7 @@
         <label class="form-label" for="confirmPassword">Confirm Password:</label><small class="text-danger">*</small>
         <input type="password" id="confirmPassword" formControlName="confirmPassword" class="form-control"/>
         <small class="text-danger" *ngIf="confirmPassword?.errors && confirmPassword?.touched && confirmPassword?.dirty"
-        >The password doesnt match</small>
+        >Confirm password doesnt match the above password</small>
       </div>
 
       <!-- phone input -->

@@ -28,10 +28,8 @@ export class ManagementAddExistingComponent implements OnInit {
   }
   onSubmit() {
     this.addExistingReq = this.addExistingForm.value
-    console.log(this.addExistingReq)
     this.bookService.addExistingBook(this.addExistingReq).subscribe({
       next:response=>{
-        console.log('here')
         this.toastMessage=response.message as string;
         this.showToast=true
         setTimeout(()=>{this.router.navigate(['admin','manage-books']).then()},850)
@@ -60,6 +58,6 @@ export class ManagementAddExistingComponent implements OnInit {
     this.showToast = true
   }
   goBack() {
-    this.router.navigate(['admin', 'manage-books'])
+    this.router.navigate(['admin', 'manage-books']).then()
   }
 }

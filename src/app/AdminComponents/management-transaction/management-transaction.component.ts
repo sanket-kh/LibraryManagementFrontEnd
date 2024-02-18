@@ -1,4 +1,4 @@
-import {Component, inject, OnInit} from '@angular/core';
+import {Component, HostListener, inject, OnInit} from '@angular/core';
 import {ManageBookTransactionDto} from "../admin-modals/Dtos/ManageBookTransactionDto";
 import {ManageBookService} from "../services/ManageBookService";
 import {FormControl, FormGroup} from "@angular/forms";
@@ -6,8 +6,8 @@ import {SearchTransactionReq} from "../admin-modals/requests/SearchTransactionRe
 import {DateDto} from "../admin-modals/Dtos/DateDto";
 import {ActivatedRoute, Router} from "@angular/router";
 import {DefaultResponse} from "../admin-modals/responses/DefaultResponse";
-import {NgbCalendar} from "@ng-bootstrap/ng-bootstrap";
-import dayjs, {Dayjs} from "dayjs";
+import dayjs from "dayjs";
+import {DOCUMENT, ViewportScroller} from "@angular/common";
 
 @Component({
   selector: 'app-management-transaction',
@@ -18,15 +18,17 @@ export class ManagementTransactionComponent implements OnInit {
   transactionList: ManageBookTransactionDto[] = []
   manageBookService: ManageBookService = inject(ManageBookService)
   activatedRoute: ActivatedRoute = inject(ActivatedRoute)
+  document: Document = inject(DOCUMENT)
   router: Router = inject(Router)
-  calendar = inject(NgbCalendar)
+  viewPort = inject(ViewportScroller)
   currentPage: number = 0
+  showToTopButton!:boolean
   searchFilter: FormGroup = new FormGroup<any>({})
   searchTransactionReq: SearchTransactionReq = {}
   showToast: boolean = false;
   toastMessage: string = '';
   datePickerConfig: any = {
-    format: 'YYYY-MM-D',
+    format: 'YYYY-MM-DD',
     separator: ' to ',
   };
 
@@ -44,6 +46,15 @@ export class ManagementTransactionComponent implements OnInit {
       date: new FormControl(''),
     })
   }
+  @HostListener('window:scroll')
+  checkScroll(){
+    const scrollPosition = this.document.documentElement.scrollTop || this.document.body.scrollTop || 0;
+    if(scrollPosition>100){
+      this.showToTopButton = true
+    }else{
+      this.showToTopButton = false
+    }
+  }
 
   getAllTransactions() {
     this.manageBookService.getAllTransactions().subscribe({
@@ -55,17 +66,19 @@ export class ManagementTransactionComponent implements OnInit {
     })
   }
 
-  setDate(date: DateDto) {
-    if(date.fromDate !== null && date.toDate !== null) {
-      this.searchTransactionReq.fromDate = date.fromDate.format('YYYY-MM-DD HH:mm:ss')
-      this.searchTransactionReq.toDate = date.toDate.format('YYYY-MM-DD HH:mm:ss')
-      if (this.searchTransactionReq.fromDate === this.searchTransactionReq.toDate) {
-        this.searchTransactionReq.toDate = undefined
-      }
-    }
-
+  goToTop() {
+    this.viewPort.scrollToPosition([0, 0])
   }
 
+  setDate(date: DateDto) {
+    if (date.fromDate !== null && date.toDate !== null) {
+      this.searchTransactionReq.fromDate = date.fromDate.set("hour", 0).set("minute", 0).set("second", 0).format('YYYY-MM-DD HH:mm:ss')
+      this.searchTransactionReq.toDate = date.toDate.set("hour", 23).set("minute", 59).set("second", 59).format('YYYY-MM-DD HH:mm:ss')
+      if (this.searchTransactionReq.fromDate.substring(0,10) === this.searchTransactionReq.toDate.substring(0,10)) {
+        this.searchTransactionReq.toDate = null
+      }
+    }
+  }
 
   get isbn() {
     return this.searchFilter.get('isbn')
@@ -82,7 +95,6 @@ export class ManagementTransactionComponent implements OnInit {
 
   onScroll() {
     this.currentPage++
-    console.log(this.currentPage)
     this.manageBookService.getScrolledTransactions(this.currentPage).subscribe({
       next: response => {
         console.log(response)
@@ -94,22 +106,21 @@ export class ManagementTransactionComponent implements OnInit {
   }
 
   searchTransactions(): void {
-    console.log(this.searchFilter)
+
     if (!this.searchFilter.dirty) {
       this.getAllTransactions()
       return;
     }
-
+    this.searchTransactionReq.isbn = this.isbn?.value
+    this.searchTransactionReq.username = this.username?.value
     if (this.searchTransactionReq.isbn == null && this.searchTransactionReq.username == '' &&
-      this.searchTransactionReq.fromDate == null &&
-      this.searchTransactionReq.toDate == null) {
+      this.searchTransactionReq.fromDate === null) {
+      console.log('here')
       this.getAllTransactions();
       return
     }
-    if (this.date?.value !='') {
       this.setDate(this.date?.value)
-    }
-
+    console.log(this.searchTransactionReq)
     this.manageBookService.searchTransaction(this.searchTransactionReq).subscribe({
       next: response => {
         console.log(response)

@@ -1,16 +1,23 @@
-import {importProvidersFrom, inject, NgModule} from '@angular/core';
+import {importProvidersFrom, NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {LoginComponent} from "./login/login.component";
 import {RegisterComponent} from "./register/register.component";
-import {AuthenticationService} from "./UserComponents/services/authentication.service";
 import {
   adminAccount,
-  adminManageBooks, adminManageFine, adminManageUser, adminProfile,
+  adminManageBooks,
+  adminManageFine,
+  adminManageUser,
+  adminProfile,
   adminTransactionResolver,
-  canActivateAdminView, canActivateEditAccDetails, canActivateEditAdminDetailsUser,
+  canActivateAdminView,
+  canActivateEditAccDetails,
+  canActivateEditAdminDetailsUser,
   canActivateEditBookDetails,
   canActivateEditUserDetailsUser,
-  canActivateUserView, userBookListResolver, userFineListResolver, userTransactionResolver
+  canActivateUserView,
+  userBookListResolver,
+  userFineListResolver,
+  userTransactionResolver
 } from "./UserComponents/services/routingService";
 import {ManagementHomeComponent} from "./AdminComponents/management-home/management-home.component";
 import {UserHomeComponent} from "./UserComponents/user-home/user-home.component";
@@ -20,7 +27,9 @@ import {ChangePasswordComponent} from "./UserComponents/change-password/change-p
 import {UserFineComponent} from "./UserComponents/user-fine/user-fine.component";
 import {ProfileComponent} from "./UserComponents/profile/profile.component";
 import {ManagementProfileComponent} from "./AdminComponents/management-profile/management-profile.component";
-import {ManagementTransactionComponent} from "./AdminComponents/management-transaction/management-transaction.component";
+import {
+  ManagementTransactionComponent
+} from "./AdminComponents/management-transaction/management-transaction.component";
 import {ManagementFineComponent} from "./AdminComponents/management-fine/management-fine.component";
 import {ManagementUserComponent} from "./AdminComponents/management-user/management-user.component";
 import {ManagementBookComponent} from "./AdminComponents/management-book/management-book.component";
@@ -40,7 +49,6 @@ import {
 import {AdminAccSetupComponent} from "./AdminComponents/admin-acc-setup/admin-acc-setup.component";
 import {AdminAccDetailsComponent} from "./AdminComponents/admin-acc-details/admin-acc-details.component";
 import {AdminSetupNewComponent} from "./AdminComponents/admin-setup-new/admin-setup-new.component";
-import {Home} from "@mui/icons-material";
 import {AdminRefreshPageComponent} from "./AdminComponents/admin-refresh-page/admin-refresh-page.component";
 import {UserRefreshPageComponent} from "./UserComponents/user-refresh-page/user-refresh-page.component";
 import {NotFoundPageComponent} from "./not-found-page/not-found-page.component";

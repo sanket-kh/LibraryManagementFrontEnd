@@ -1,4 +1,4 @@
-import {Component, inject, OnInit, signal} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
 import {HttpErrorResponse} from "@angular/common/http";
 import {UserService} from "../services/userService";

@@ -22,3 +22,12 @@
 .custom-day.faded {
   background-color: rgba(2, 117, 216, 0.5);
 }
+.toTop{
+  position: fixed;
+  float: right;
+  cursor: pointer;
+  right: 40px;
+  bottom: 70px;
+  z-index: 2;
+  transform: scale(200%);
+}

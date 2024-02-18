@@ -1,7 +1,6 @@
-import {Inject, inject, Injectable, numberAttribute} from '@angular/core';
+import {inject, Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
-import {DOCUMENT} from "@angular/common";
 import {DefaultResponse} from "../UserModals/responses/DefaultResponse";
 import {SearchBookDto} from "../UserModals/dtos/SearchBookDto";
 import {ReturnBookReq} from "../UserModals/requests/ReturnBookReq";

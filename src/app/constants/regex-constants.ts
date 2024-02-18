@@ -3,7 +3,7 @@ export abstract class RegexConstants {
   static readonly passwordRegex: string | RegExp = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{8,}$";
   static readonly nameRegex: RegExp=/^[A-Z][a-z]{2,}$/;
   static readonly firstLetterCapital:RegExp = /^[A-Z]/
-  static readonly phoneRegex: string | RegExp = "^[9][0-9]+";
+  static readonly phoneRegex: string | RegExp = "^[9][678][0-9]+";
   static readonly accountNameRegex: string|RegExp = "^[A-Z][a-z]{1,}(?: [A-Z][a-z]*){0,2}$";
   static readonly accountNumberRegex:string|RegExp = "^[0-9]{9,20}$"
 

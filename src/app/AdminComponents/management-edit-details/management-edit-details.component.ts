@@ -1,7 +1,6 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {UserService} from "../../UserComponents/services/userService";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
-import {UserRegisterRequest} from "../../UserComponents/UserModals/requests/UserRegisterRequest";
 import {RegexConstants} from "../../constants/regex-constants";
 import {ChangeUserDetailsReq} from "../../UserComponents/UserModals/requests/ChangeUserDetailsReq";
 import {HttpErrorResponse} from "@angular/common/http";
@@ -84,13 +83,12 @@ export class ManagementEditDetailsComponent implements OnInit{
     this.userDetailsReq = this.updateDetailsForm.value;
     this.submitted = true
     if(this.updateDetailsForm.pristine){
-      console.log("prestine")
       this.toastMessage = "No changes made"
       this.showToast = true
-      setTimeout(()=>{
-        this.router.navigate(['admin','profile']).then()
-
-      },1000)
+      // setTimeout(()=>{
+      //   this.router.navigate(['admin','profile']).then()
+      //
+      // },1000)
       return
     }
     this.userService.updateUserDetails(this.userDetailsReq).subscribe({

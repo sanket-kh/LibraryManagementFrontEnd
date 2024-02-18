@@ -14,7 +14,6 @@ import {ClearFineReq} from "../admin-modals/requests/ClearFineReq";
 import {HttpErrorResponse} from "@angular/common/http";
 import {ManageFineService} from "../services/ManageFineService";
 import {AccountTypes} from "../admin-modals/Dtos/AccountTypes";
-import {error} from "@angular/compiler-cli/src/transformers/util";
 
 @Component({
   selector: 'app-management-user-details',
@@ -154,5 +153,8 @@ export class ManagementUserDetailsComponent implements OnInit {
     this.qrDetails = ''
     this.accDetails = undefined
     this.selectedAccType=''
+  }
+  goBack() {
+    this.router.navigate(['admin', 'manage-users']).then()
   }
 }

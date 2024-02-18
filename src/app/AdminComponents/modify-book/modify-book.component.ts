@@ -6,7 +6,8 @@ import {Router} from "@angular/router";
 import {AddBookReq} from "../admin-modals/requests/AddBookReq";
 import {RegexConstants} from "../../constants/regex-constants";
 import {CustomValidatorService} from "../../UserComponents/services/CustomValidators";
-import {rejects} from "node:assert";
+import {HttpErrorResponse} from "@angular/common/http";
+import {DefaultResponse} from "../admin-modals/responses/DefaultResponse";
 
 @Component({
   selector: 'app-modify-book',
@@ -15,13 +16,11 @@ import {rejects} from "node:assert";
 })
 export class ModifyBookComponent implements OnInit {
   bookForm: FormGroup = new FormGroup<any>({})
-  document: Document = inject(DOCUMENT)
   router: Router = inject(Router)
   manageBookService: ManageBookService = inject(ManageBookService)
   pageTitle?: string = 'Add New Book'
   isSubmitted: boolean = false
   bookReq: AddBookReq = {}
-  confirmNavigation!: Promise<boolean>
   toastMessage: string = ''
   showToast: boolean = false
   newBookForm: boolean = true
@@ -98,11 +97,14 @@ export class ModifyBookComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.bookForm)
     this.bookReq = this.bookForm.value
     this.bookReq.isbn = this.manageBookService.bookDto?.isbn
     this.isSubmitted = true
-
+    if(this.bookForm.pristine){
+      this.toastMessage = "no changes made";
+      this.showToast = true
+      return
+    }
     if (!this.newBookForm) {
       this.manageBookService.updateBook(this.bookReq).subscribe({
         next: response => {
@@ -122,21 +124,21 @@ export class ModifyBookComponent implements OnInit {
       })
     } else {
       this.bookReq.isbn = this.isbn?.value
-      console.log(this.bookReq)
       this.manageBookService.addBook(this.bookReq).subscribe({
         next: response => {
           this.toastMessage = response.message as string
           this.showToast = true
           setTimeout(() => {
             this.router.navigate(['admin', 'manage-books']).then()
-          }, 850)
+          }, 1000)
 
         }, error: err => {
-          console.log(err)
-          alert('some error occurred')
-          setTimeout(() => {
-            this.router.navigate(['admin', 'manage-books']).then()
-          }, 850)
+          let err1:DefaultResponse = err.error as DefaultResponse
+          this.toastMessage = err1.message as string
+          this.showToast = true
+          // setTimeout(() => {
+          //   this.router.navigate(['admin', 'manage-books']).then()
+          // }, 850)
         }
       })
     }
@@ -145,7 +147,7 @@ export class ModifyBookComponent implements OnInit {
   }
 
   goBack() {
-    this.router.navigate(['admin', 'manage-books'])
+    this.router.navigate(['admin', 'manage-books']).then()
   }
 
   protected readonly Promise = Promise;

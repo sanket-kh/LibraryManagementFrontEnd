@@ -1,5 +1,5 @@
 import {Component, ElementRef, inject, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {FormBuilder, FormGroup} from "@angular/forms";
 import {DOCUMENT} from "@angular/common";
 import {BookService} from "../services/book.service";
 import {UserService} from "../services/userService";
@@ -8,7 +8,6 @@ import {DefaultResponse} from "../UserModals/responses/DefaultResponse";
 import {SearchBookDto} from "../UserModals/dtos/SearchBookDto";
 import {BorrowBookReq} from "../UserModals/requests/BorrowBookReq";
 import {ActivatedRoute} from "@angular/router";
-import {addWarning} from "@angular-devkit/build-angular/src/utils/webpack-diagnostics";
 
 @Component({
   selector: 'app-user-home',
@@ -91,7 +90,6 @@ export class UserHomeComponent implements OnInit {
             this.notFound = true;
             this.bookList = [];
             console.log("not found status:" + this.notFound)
-
           }
         },
         error: err => {
@@ -106,7 +104,6 @@ export class UserHomeComponent implements OnInit {
         if (!response) {
           this.notFound = true;
           this.bookList = []
-
         } else {
           this.bookList = response.responseBody as UserBookDto[]
         }
@@ -132,12 +129,10 @@ export class UserHomeComponent implements OnInit {
     this.searchFilter.reset()
   }
 
-
   disableBorrowBook(book: UserBookDto): boolean {
-    // let disable = false;
     if (this.borrowedBooks == undefined) {
       return false;
     }
-     return this.borrowedBooks.some(borrowedBook => book.isbn == borrowedBook.isbn )
+    return this.borrowedBooks.some(borrowedBook => borrowedBook.isbn == book.isbn)
   }
 }

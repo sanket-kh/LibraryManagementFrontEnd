@@ -1,8 +1,8 @@
-import {Component, Inject, inject, Input, OnDestroy, OnInit, PLATFORM_ID} from '@angular/core';
-import {UserService} from "../UserComponents/services/userService";
+import {Component, Inject, inject, Input, OnDestroy, OnInit} from '@angular/core';
 import {AuthenticationService} from "../UserComponents/services/authentication.service";
 import {fromEvent, Observable, Subscription} from "rxjs";
-import {DOCUMENT, isPlatformBrowser, Location} from "@angular/common";
+import {DOCUMENT} from "@angular/common";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-header',
@@ -14,6 +14,10 @@ export class HeaderComponent implements OnInit, OnDestroy{
   offlineEvent!: Observable<Event>;
   subscriptions: Subscription[] = [];
   userService: AuthenticationService = inject(AuthenticationService)
+  activatedRoute:ActivatedRoute = inject(ActivatedRoute)
+  authService:AuthenticationService = inject(AuthenticationService)
+  route!:string
+  router = inject(Router)
   connectionStatusMessage!: string;
   connectionStatus!: string;
   showConnectionStatus!: boolean;
@@ -34,14 +38,12 @@ export class HeaderComponent implements OnInit, OnDestroy{
         this.showConnectionStatus = false
         document.defaultView?.location.reload()
       }, 600)
-      console.log('Online...');
     }));
 
     this.subscriptions.push(this.offlineEvent.subscribe(e => {
       this.connectionStatusMessage = "Connection lost! Looks like you're offline";
       this.connectionStatus = 'offline';
       this.showConnectionStatus = true
-      console.log('Offline...');
     }));
   }
 
@@ -50,4 +52,11 @@ export class HeaderComponent implements OnInit, OnDestroy{
     this.subscriptions.forEach(subscription => subscription.unsubscribe());
   }
 
+  navigateToHome() {
+    if (this.authService.isAdmin()) {
+      this.router.navigate(['admin','home']).then()
+    }else if (this.authService.isUser()){
+      this.router.navigate(['admin','home']).then()
+    }
+  }
 }

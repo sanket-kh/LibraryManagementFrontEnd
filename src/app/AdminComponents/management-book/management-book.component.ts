@@ -54,16 +54,18 @@ export class ManagementBookComponent implements OnInit {
     if (!this.searchInput.isbn && !this.searchInput.author && !this.searchInput.title) {
       this.bookService.getAllBooksLibrarian(this.pageNumber).subscribe({
         next: (response) => {
-          console.log(response)
           this.bookList = response.responseBody as BookDto[]
           if (!this.bookList) {
             this.notFound = true;
             this.bookList = [];
-            console.log("not found status:" + this.notFound)
           }
         },
         error: err => {
+          let error: HttpErrorResponse = err
           console.log(err)
+          let defaultResponse: DefaultResponse = error.error
+          this.toastMessage = defaultResponse.message as string
+          this.showToast = true
         }
       });
       return
@@ -71,7 +73,6 @@ export class ManagementBookComponent implements OnInit {
 
     this.bookService.searchBook(this.searchInput).subscribe({
       next: (response) => {
-        console.log(response)
         if (!response) {
           this.notFound = true;
           this.bookList = []
@@ -82,7 +83,11 @@ export class ManagementBookComponent implements OnInit {
         }
       },
       error: err => {
+        let error: HttpErrorResponse = err
         console.log(err)
+        let defaultResponse: DefaultResponse = error.error
+        this.toastMessage = defaultResponse.message as string
+        this.showToast = true
       }
     })
   }

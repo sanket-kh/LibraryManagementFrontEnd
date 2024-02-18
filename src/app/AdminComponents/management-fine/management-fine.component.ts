@@ -24,7 +24,6 @@ export class ManagementFineComponent implements OnInit{
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(
       (data)=>{
-        console.log(data)
         const response:DefaultResponse = data['fineList'];
         let pageResponse:PageResponse = response.responseBody as PageResponse
         this.finesDto = pageResponse.content as ManageUserFineDto[]

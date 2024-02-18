@@ -17,7 +17,7 @@
                  *ngIf="copies?.errors && copies?.touched && copies?.dirty"
           >copies should be a whole number of max 2 digits </small>
         </div>
-        <button type="submit" class="btn btn-primary" [disabled]="addExistingForm.invalid">Submit</button>
+        <button type="submit" class="btn btn-primary" style="border: #99BC85; background-color: #99BC85" [disabled]="addExistingForm.invalid">Submit</button>
         <button type="button" class="btn btn-secondary mx-2" (click)="goBack()" >Go Back</button>
 
         <button type="button" *ngIf="addExistingForm.dirty" class="btn btn-primary mx-3" (click)="onReset()">Reset</button>

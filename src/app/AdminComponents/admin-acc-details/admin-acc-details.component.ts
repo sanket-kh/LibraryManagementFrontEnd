@@ -1,7 +1,7 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {AdminAccDetailsDto} from "../admin-modals/Dtos/AdminAccDetailsDto";
 import {AdminAccService} from "../services/AdminAccService";
-import {ActivatedRoute, Route, Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {DefaultResponse} from "../admin-modals/responses/DefaultResponse";
 
 @Component({

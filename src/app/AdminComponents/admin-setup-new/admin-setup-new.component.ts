@@ -104,8 +104,8 @@ export class AdminSetupNewComponent implements OnInit{
         this.toastMessage = response.message as string
         this.showToast = true
         setTimeout(()=>{
-          this.router.navigate(['']).then()
-        },1000)
+          this.router.navigate(['admin','home']).then()
+        },1200)
 
       },error:err => {
         let error = err as HttpErrorResponse

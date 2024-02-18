@@ -80,7 +80,7 @@
       </accordion>
 
 
-      <accordion [isAnimated]=true class="mt-5">
+      <accordion [isAnimated]=true class="mt-5" *ngIf="user.role=='USER'">
         <accordion-group panelClass="panelHeading" heading="Borrowed Books">
           <table class="table table-striped" *ngIf="borrowedBookList">
             <thead>
@@ -168,6 +168,13 @@
 
       </div>
 
+    </div>
+  </div>
+</div>
+<div class="container-fluid">
+  <div class="row text-center my-3">
+    <div class="col">
+      <button class="btn btn-secondary" (click)="goBack()">Go Back</button>
     </div>
   </div>
 </div>

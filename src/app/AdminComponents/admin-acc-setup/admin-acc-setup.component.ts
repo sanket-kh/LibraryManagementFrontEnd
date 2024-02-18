@@ -1,7 +1,6 @@
 import {Component, inject, OnInit, ViewEncapsulation} from '@angular/core';
 import {AbstractControl, FormArray, FormControl, FormGroup, Validators} from "@angular/forms";
 import {AdminAccService} from "../services/AdminAccService";
-import {AccDetailsReq} from "../admin-modals/requests/AccDetailsReq";
 import {Router} from "@angular/router";
 import {RegexConstants} from "../../constants/regex-constants";
 import {HttpErrorResponse} from "@angular/common/http";
@@ -25,7 +24,6 @@ export class AdminAccSetupComponent implements OnInit {
   protected accountDetails: FormGroup = new FormGroup<any>({})
   adminAccService: AdminAccService = inject(AdminAccService)
   router: Router = inject(Router)
-  account?: AccDetailsReq = undefined
   currentIndex: number = 0
   populatingIndex:number = 0
   selectedAccountTypes: string[] = []
@@ -189,7 +187,7 @@ export class AdminAccSetupComponent implements OnInit {
     this.accTypesToShow = this.allAccountTypes.filter(x => !this.selectedAccountTypes.includes(x))
   }
 
-  selected(account: AbstractControl<any>, i: number) {
+  selected(account: AbstractControl, i: number) {
     let type = account.get('accountTypeName')?.value
     this.getAccAssociatedOrganization(type, i)
     this.selectedAccountTypes[i] = type
@@ -197,7 +195,7 @@ export class AdminAccSetupComponent implements OnInit {
 
   }
 
-  removeIndex(account: AbstractControl<any>, index: number) {
+  removeIndex(account: AbstractControl, index: number) {
     this.accounts.removeAt(index)
     let removed = account.get('accountTypeName')?.value as string
     this.selectedAccountTypes = this.selectedAccountTypes.filter(e => e !== removed)

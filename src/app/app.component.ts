@@ -1,14 +1,6 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
-import {
-  Router,
-  Event,
-  NavigationStart,
-  NavigationEnd,
-  NavigationCancel,
-  ActivatedRoute,
-  RoutesRecognized
-} from "@angular/router";
+import {ActivatedRoute, Event, NavigationCancel, NavigationEnd, NavigationStart, Router} from "@angular/router";
 import {AuthenticationService} from "./UserComponents/services/authentication.service";
 
 @Component({
