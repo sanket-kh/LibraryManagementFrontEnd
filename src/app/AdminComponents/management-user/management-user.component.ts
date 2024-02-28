@@ -4,12 +4,19 @@ import {ManageUserDto} from "../admin-modals/Dtos/ManageUserDto";
 import {HttpErrorResponse} from "@angular/common/http";
 import {DefaultResponse} from "../admin-modals/responses/DefaultResponse";
 import {LockUserReq} from "../admin-modals/requests/LockUserReq";
-import {ActivatedRoute, Router} from "@angular/router";
+import { ActivatedRoute, Router, RouterLink } from "@angular/router";
+import { NgbToast } from '@ng-bootstrap/ng-bootstrap';
+import { ModalComponent } from '../../UserComponents/modal/modal.component';
+import { ManagementFormModalComponent } from '../management-form-modal/management-form-modal.component';
+import { FormsModule } from '@angular/forms';
+import { ManagementNav } from '../management-nav/navbar.component';
 
 @Component({
-  selector: 'app-management-user',
-  templateUrl: './management-user.component.html',
-  styleUrl: './management-user.component.css'
+    selector: 'app-management-user',
+    templateUrl: './management-user.component.html',
+    styleUrl: './management-user.component.css',
+    standalone: true,
+    imports: [ManagementNav, FormsModule, RouterLink, ManagementFormModalComponent, ModalComponent, NgbToast]
 })
 export class ManagementUserComponent implements OnInit {
   userService: ManageUserService = inject(ManageUserService)

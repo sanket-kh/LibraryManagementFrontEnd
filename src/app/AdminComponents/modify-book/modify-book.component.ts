@@ -1,18 +1,26 @@
 import {Component, inject, OnInit} from '@angular/core';
-import {FormControl, FormGroup, Validators} from "@angular/forms";
+import { FormControl, FormGroup, Validators, FormsModule, ReactiveFormsModule } from "@angular/forms";
 import {ManageBookService} from "../services/ManageBookService";
-import {DOCUMENT} from "@angular/common";
+import { DOCUMENT, NgIf } from "@angular/common";
 import {Router} from "@angular/router";
 import {AddBookReq} from "../admin-modals/requests/AddBookReq";
 import {RegexConstants} from "../../constants/regex-constants";
 import {CustomValidatorService} from "../../UserComponents/services/CustomValidators";
 import {HttpErrorResponse} from "@angular/common/http";
 import {DefaultResponse} from "../admin-modals/responses/DefaultResponse";
+import { NgbToast } from '@ng-bootstrap/ng-bootstrap';
+import { ModalComponent } from '../../UserComponents/modal/modal.component';
+import { MaxLengthDirective } from '../../directives/max-length.directive';
+import { NoAlphabetsDirective } from '../../directives/no-alphabets.directive';
+import { NoSpecialCharDirective } from '../../directives/no-special-char.directive';
+import { ManagementNav } from '../management-nav/navbar.component';
 
 @Component({
-  selector: 'app-modify-book',
-  templateUrl: './modify-book.component.html',
-  styleUrl: './modify-book.component.css'
+    selector: 'app-modify-book',
+    templateUrl: './modify-book.component.html',
+    styleUrl: './modify-book.component.css',
+    standalone: true,
+    imports: [ManagementNav, FormsModule, ReactiveFormsModule, NoSpecialCharDirective, NoAlphabetsDirective, NgIf, MaxLengthDirective, ModalComponent, NgbToast]
 })
 export class ModifyBookComponent implements OnInit {
   bookForm: FormGroup = new FormGroup<any>({})

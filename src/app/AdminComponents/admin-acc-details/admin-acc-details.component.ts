@@ -1,13 +1,18 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {AdminAccDetailsDto} from "../admin-modals/Dtos/AdminAccDetailsDto";
 import {AdminAccService} from "../services/AdminAccService";
-import {ActivatedRoute, Router} from "@angular/router";
+import { ActivatedRoute, Router, RouterLink } from "@angular/router";
 import {DefaultResponse} from "../admin-modals/responses/DefaultResponse";
+import { NgbToast } from '@ng-bootstrap/ng-bootstrap';
+import { NgFor, NgIf } from '@angular/common';
+import { ManagementNav } from '../management-nav/navbar.component';
 
 @Component({
-  selector: 'app-admin-acc-details',
-  templateUrl: './admin-acc-details.component.html',
-  styleUrl: './admin-acc-details.component.css'
+    selector: 'app-admin-acc-details',
+    templateUrl: './admin-acc-details.component.html',
+    styleUrl: './admin-acc-details.component.css',
+    standalone: true,
+    imports: [ManagementNav, NgFor, RouterLink, NgIf, NgbToast]
 })
 export class AdminAccDetailsComponent implements OnInit {
   accDetails: AdminAccDetailsDto[] = []

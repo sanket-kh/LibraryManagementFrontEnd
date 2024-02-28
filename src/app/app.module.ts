@@ -65,8 +65,27 @@ import {ApwDaterangepickerBsModule} from "apw-daterangepicker-bs";
 
 
 @NgModule({
-  declarations: [
-    AppComponent,
+  declarations: [AppComponent],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    NgOptimizedImage,
+    FormsModule,
+    HttpClientModule,
+    ReactiveFormsModule,
+    NgxWebstorageModule.forRoot(),
+    NgbModule,
+    NgbToast,
+    AccordionModule.forRoot(),
+    BrowserAnimationsModule,
+    NgbAccordionModule,
+    NgSelectModule,
+    InfiniteScrollModule,
+    NgbDatepickerModule,
+    AccordionModule,
+    QRCodeModule,
+    NgbModalModule,
+    ApwDaterangepickerBsModule,
     LoginComponent,
     HeaderComponent,
     FooterComponent,
@@ -103,31 +122,7 @@ import {ApwDaterangepickerBsModule} from "apw-daterangepicker-bs";
     OnlineStatusComponent,
     AdminRefreshPageComponent,
     UserRefreshPageComponent,
-    NotFoundPageComponent
-
-
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    NgOptimizedImage,
-    FormsModule,
-    HttpClientModule,
-    ReactiveFormsModule,
-    NgxWebstorageModule.forRoot(),
-    NgbModule,
-    NgbToast,
-    AccordionModule.forRoot(),
-    BrowserAnimationsModule,
-    NgbAccordionModule,
-    NgSelectModule,
-    InfiniteScrollModule,
-    NgbDatepickerModule,
-    AccordionModule,
-    QRCodeModule,
-    NgbModalModule,
-    ApwDaterangepickerBsModule,
-
+    NotFoundPageComponent,
   ],
   providers: [
     provideClientHydration(),

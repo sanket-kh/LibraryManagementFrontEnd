@@ -1,19 +1,22 @@
 import {Component, Inject, inject} from '@angular/core';
 import {AuthenticationService} from "../UserComponents/services/authentication.service";
 import {HttpErrorResponse} from "@angular/common/http";
-import {Router} from "@angular/router";
-import {DOCUMENT} from "@angular/common";
+import { Router, RouterLink } from "@angular/router";
+import { DOCUMENT, NgIf } from "@angular/common";
 import {RegexConstants} from "../constants/regex-constants";
 import {LoginRequest} from "../UserComponents/UserModals/requests/LoginRequest";
 import {DefaultResponse} from "../UserComponents/UserModals/responses/DefaultResponse";
 import {AuthResponse} from "../UserComponents/UserModals/dtos/AuthResponse";
 import {HeaderComponent} from "../header/header.component";
 import {FooterComponent} from "../footer/footer.component";
+import { FormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrl: './login.component.css'
+    selector: 'app-login',
+    templateUrl: './login.component.html',
+    styleUrl: './login.component.css',
+    standalone: true,
+    imports: [FormsModule, NgIf, RouterLink]
 })
 export class LoginComponent {
   constructor(@Inject(DOCUMENT) private document:Document) {

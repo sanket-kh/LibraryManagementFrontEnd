@@ -1,17 +1,25 @@
 import {Component, inject, OnInit} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import { FormBuilder, FormControl, FormGroup, Validators, FormsModule, ReactiveFormsModule } from "@angular/forms";
 import {RegexConstants} from "../../constants/regex-constants";
 import {UserService} from "../services/userService";
 import {HttpErrorResponse} from "@angular/common/http";
 import {DefaultResponse} from "../../AdminComponents/admin-modals/responses/DefaultResponse";
-import {Router} from "@angular/router";
+import { Router, RouterLink } from "@angular/router";
 import {ChangeUserDetailsReq} from "../UserModals/requests/ChangeUserDetailsReq";
 import {CustomValidatorService} from "../services/CustomValidators";
+import { NgbToast } from '@ng-bootstrap/ng-bootstrap';
+import { MaxLengthDirective } from '../../directives/max-length.directive';
+import { NoSpecialCharDirective } from '../../directives/no-special-char.directive';
+import { NoAlphabetsDirective } from '../../directives/no-alphabets.directive';
+import { NgIf } from '@angular/common';
+import { NavbarComponent } from '../navbar/navbar.component';
 
 @Component({
-  selector: 'app-admin-details-form',
-  templateUrl: './user-details-form.component.html',
-  styleUrl: './user-details-form.component.css'
+    selector: 'app-admin-details-form',
+    templateUrl: './user-details-form.component.html',
+    styleUrl: './user-details-form.component.css',
+    standalone: true,
+    imports: [NavbarComponent, FormsModule, ReactiveFormsModule, NgIf, NoAlphabetsDirective, NoSpecialCharDirective, MaxLengthDirective, RouterLink, NgbToast]
 })
 export class UserDetailsFormComponent implements OnInit {
 

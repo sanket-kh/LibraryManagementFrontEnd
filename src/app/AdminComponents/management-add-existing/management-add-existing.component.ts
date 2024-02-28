@@ -1,15 +1,23 @@
 import {Component, inject, OnInit} from '@angular/core';
-import {FormControl, FormGroup, Validators} from "@angular/forms";
+import { FormControl, FormGroup, Validators, FormsModule, ReactiveFormsModule } from "@angular/forms";
 import {ManageBookService} from "../services/ManageBookService";
 import {AddExistingBookReq} from "../admin-modals/requests/AddExistingBookReq";
 import {HttpErrorResponse} from "@angular/common/http";
 import {DefaultResponse} from "../../UserComponents/UserModals/responses/DefaultResponse";
 import {Router} from "@angular/router";
+import { NgbToast } from '@ng-bootstrap/ng-bootstrap';
+import { NgIf } from '@angular/common';
+import { MaxLengthDirective } from '../../directives/max-length.directive';
+import { NoSpecialCharDirective } from '../../directives/no-special-char.directive';
+import { NoAlphabetsDirective } from '../../directives/no-alphabets.directive';
+import { ManagementNav } from '../management-nav/navbar.component';
 
 @Component({
-  selector: 'app-management-add-existing',
-  templateUrl: './management-add-existing.component.html',
-  styleUrl: './management-add-existing.component.css'
+    selector: 'app-management-add-existing',
+    templateUrl: './management-add-existing.component.html',
+    styleUrl: './management-add-existing.component.css',
+    standalone: true,
+    imports: [ManagementNav, FormsModule, ReactiveFormsModule, NoAlphabetsDirective, NoSpecialCharDirective, MaxLengthDirective, NgIf, NgbToast]
 })
 export class ManagementAddExistingComponent implements OnInit {
   bookService:ManageBookService = inject(ManageBookService)

@@ -1,6 +1,6 @@
 import {Component, ElementRef, inject, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from "@angular/forms";
-import {DOCUMENT} from "@angular/common";
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { DOCUMENT, NgIf, NgFor } from "@angular/common";
 import {BookService} from "../services/book.service";
 import {UserService} from "../services/userService";
 import {UserBookDto} from "../UserModals/dtos/UserBookDto";
@@ -8,11 +8,17 @@ import {DefaultResponse} from "../UserModals/responses/DefaultResponse";
 import {SearchBookDto} from "../UserModals/dtos/SearchBookDto";
 import {BorrowBookReq} from "../UserModals/requests/BorrowBookReq";
 import {ActivatedRoute} from "@angular/router";
+import { NgbToast } from '@ng-bootstrap/ng-bootstrap';
+import { ModalComponent } from '../modal/modal.component';
+import { NoAlphabetsDirective } from '../../directives/no-alphabets.directive';
+import { NavbarComponent } from '../navbar/navbar.component';
 
 @Component({
-  selector: 'app-user-home',
-  templateUrl: './user-home.component.html',
-  styleUrl: './user-home.component.css'
+    selector: 'app-user-home',
+    templateUrl: './user-home.component.html',
+    styleUrl: './user-home.component.css',
+    standalone: true,
+    imports: [NavbarComponent, FormsModule, ReactiveFormsModule, NoAlphabetsDirective, NgIf, NgFor, ModalComponent, NgbToast]
 })
 export class UserHomeComponent implements OnInit {
   bookList?: UserBookDto[] = []

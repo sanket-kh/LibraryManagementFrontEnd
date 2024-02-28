@@ -1,9 +1,12 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
+import { NgIf } from '@angular/common';
 
 @Component({
-  selector: 'app-modal',
-  templateUrl: './modal.component.html',
-  styleUrl: './modal.component.css'
+    selector: 'app-modal',
+    templateUrl: './modal.component.html',
+    styleUrl: './modal.component.css',
+    standalone: true,
+    imports: [NgIf]
 })
 export class ModalComponent {
   @Input('heading') heading?: string;
