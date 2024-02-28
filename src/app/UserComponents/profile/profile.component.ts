@@ -7,11 +7,16 @@ import {BorrowedBookDto} from "../UserModals/dtos/BorrowedBookDto";
 import {UserDto} from "../UserModals/dtos/UserDto";
 import {DefaultResponse} from "../UserModals/responses/DefaultResponse";
 import {ReturnBookReq} from "../UserModals/requests/ReturnBookReq";
+import { NgbToast } from '@ng-bootstrap/ng-bootstrap';
+import { ModalComponent } from '../modal/modal.component';
+import { NavbarComponent } from '../navbar/navbar.component';
 
 @Component({
-  selector: 'app-profile',
-  templateUrl: './profile.component.html',
-  styleUrl: './profile.component.css'
+    selector: 'app-profile',
+    templateUrl: './profile.component.html',
+    styleUrl: './profile.component.css',
+    standalone: true,
+    imports: [NavbarComponent, ModalComponent, NgbToast]
 })
 export class ProfileComponent implements OnInit {
 

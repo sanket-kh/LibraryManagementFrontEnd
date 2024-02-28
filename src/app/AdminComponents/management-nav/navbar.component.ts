@@ -1,11 +1,13 @@
 import {Component, inject} from '@angular/core';
-import {Router} from "@angular/router";
+import { Router, RouterLinkActive, RouterLink } from "@angular/router";
 import {AuthenticationService} from "../../UserComponents/services/authentication.service";
 
 @Component({
-  selector: 'app-management-navbar',
-  templateUrl: './navbar.component.html',
-  styleUrl: './navbar.component.css'
+    selector: 'app-management-navbar',
+    templateUrl: './navbar.component.html',
+    styleUrl: './navbar.component.css',
+    standalone: true,
+    imports: [RouterLinkActive, RouterLink]
 })
 export class ManagementNav {
   router: Router = inject(Router)

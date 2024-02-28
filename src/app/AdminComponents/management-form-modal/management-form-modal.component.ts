@@ -1,9 +1,12 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
+import { FormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'app-management-form-modal',
-  templateUrl: './management-form-modal.component.html',
-  styleUrl: './management-form-modal.component.css'
+    selector: 'app-management-form-modal',
+    templateUrl: './management-form-modal.component.html',
+    styleUrl: './management-form-modal.component.css',
+    standalone: true,
+    imports: [FormsModule]
 })
 export class ManagementFormModalComponent {
   remark: string = ''

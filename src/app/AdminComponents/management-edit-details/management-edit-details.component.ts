@@ -1,17 +1,25 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {UserService} from "../../UserComponents/services/userService";
-import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import { FormBuilder, FormControl, FormGroup, Validators, FormsModule, ReactiveFormsModule } from "@angular/forms";
 import {RegexConstants} from "../../constants/regex-constants";
 import {ChangeUserDetailsReq} from "../../UserComponents/UserModals/requests/ChangeUserDetailsReq";
 import {HttpErrorResponse} from "@angular/common/http";
 import {DefaultResponse} from "../admin-modals/responses/DefaultResponse";
 import {Router} from "@angular/router";
 import {CustomValidatorService} from "../../UserComponents/services/CustomValidators";
+import { NgbToast } from '@ng-bootstrap/ng-bootstrap';
+import { MaxLengthDirective } from '../../directives/max-length.directive';
+import { NoSpecialCharDirective } from '../../directives/no-special-char.directive';
+import { NoAlphabetsDirective } from '../../directives/no-alphabets.directive';
+import { NgIf } from '@angular/common';
+import { ManagementNav } from '../management-nav/navbar.component';
 
 @Component({
-  selector: 'app-management-edit-details',
-  templateUrl: './management-edit-details.component.html',
-  styleUrl: './management-edit-details.component.css'
+    selector: 'app-management-edit-details',
+    templateUrl: './management-edit-details.component.html',
+    styleUrl: './management-edit-details.component.css',
+    standalone: true,
+    imports: [ManagementNav, FormsModule, ReactiveFormsModule, NgIf, NoAlphabetsDirective, NoSpecialCharDirective, MaxLengthDirective, NgbToast]
 })
 export class ManagementEditDetailsComponent implements OnInit{
 

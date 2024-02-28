@@ -1,19 +1,27 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {UserBookDto} from "../../UserComponents/UserModals/dtos/UserBookDto";
-import {FormBuilder, FormGroup} from "@angular/forms";
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from "@angular/forms";
 import {UserService} from "../../UserComponents/services/userService";
-import {DOCUMENT} from "@angular/common";
+import { DOCUMENT, NgIf, NgFor } from "@angular/common";
 import {SearchBookDto} from "../../UserComponents/UserModals/dtos/SearchBookDto";
 import {BookDto} from "../admin-modals/Dtos/BookDto";
 import {ManageBookService} from "../services/ManageBookService";
 import {HttpErrorResponse} from "@angular/common/http";
 import {DefaultResponse} from "../../UserComponents/UserModals/responses/DefaultResponse";
-import {ActivatedRoute, Router} from "@angular/router";
+import { ActivatedRoute, Router, RouterLink } from "@angular/router";
+import { NgbToast } from '@ng-bootstrap/ng-bootstrap';
+import { ModalComponent } from '../../UserComponents/modal/modal.component';
+import { MaxLengthDirective } from '../../directives/max-length.directive';
+import { NoSpecialCharDirective } from '../../directives/no-special-char.directive';
+import { NoAlphabetsDirective } from '../../directives/no-alphabets.directive';
+import { ManagementNav } from '../management-nav/navbar.component';
 
 @Component({
-  selector: 'app-management-book',
-  templateUrl: './management-book.component.html',
-  styleUrl: './management-book.component.css'
+    selector: 'app-management-book',
+    templateUrl: './management-book.component.html',
+    styleUrl: './management-book.component.css',
+    standalone: true,
+    imports: [ManagementNav, FormsModule, ReactiveFormsModule, NoAlphabetsDirective, NoSpecialCharDirective, MaxLengthDirective, RouterLink, NgIf, NgFor, ModalComponent, NgbToast]
 })
 export class ManagementBookComponent implements OnInit {
   bookList: BookDto[] = []

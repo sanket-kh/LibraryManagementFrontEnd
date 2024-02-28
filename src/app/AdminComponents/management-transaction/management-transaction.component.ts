@@ -1,18 +1,27 @@
 import {Component, HostListener, inject, OnInit} from '@angular/core';
 import {ManageBookTransactionDto} from "../admin-modals/Dtos/ManageBookTransactionDto";
 import {ManageBookService} from "../services/ManageBookService";
-import {FormControl, FormGroup} from "@angular/forms";
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from "@angular/forms";
 import {SearchTransactionReq} from "../admin-modals/requests/SearchTransactionReq";
 import {DateDto} from "../admin-modals/Dtos/DateDto";
 import {ActivatedRoute, Router} from "@angular/router";
 import {DefaultResponse} from "../admin-modals/responses/DefaultResponse";
 import dayjs from "dayjs";
-import {DOCUMENT, ViewportScroller} from "@angular/common";
+import { DOCUMENT, ViewportScroller, NgIf, DatePipe } from "@angular/common";
+import { NgbToast } from '@ng-bootstrap/ng-bootstrap';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { ApwDaterangepickerBsModule } from 'apw-daterangepicker-bs';
+import { MaxLengthDirective } from '../../directives/max-length.directive';
+import { NoSpecialCharDirective } from '../../directives/no-special-char.directive';
+import { NoAlphabetsDirective } from '../../directives/no-alphabets.directive';
+import { ManagementNav } from '../management-nav/navbar.component';
 
 @Component({
-  selector: 'app-management-transaction',
-  templateUrl: './management-transaction.component.html',
-  styleUrl: './management-transaction.component.css'
+    selector: 'app-management-transaction',
+    templateUrl: './management-transaction.component.html',
+    styleUrl: './management-transaction.component.css',
+    standalone: true,
+    imports: [ManagementNav, FormsModule, ReactiveFormsModule, NoAlphabetsDirective, NoSpecialCharDirective, MaxLengthDirective, ApwDaterangepickerBsModule, InfiniteScrollModule, NgIf, NgbToast, DatePipe]
 })
 export class ManagementTransactionComponent implements OnInit {
   transactionList: ManageBookTransactionDto[] = []
