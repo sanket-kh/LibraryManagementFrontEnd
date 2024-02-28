@@ -1,5 +1,5 @@
 import {Component, inject, OnInit} from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators, FormsModule, ReactiveFormsModule } from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {RegexConstants} from "../../constants/regex-constants";
 import {HttpErrorResponse} from "@angular/common/http";
 import {CustomValidatorService} from "../services/CustomValidators";
@@ -7,17 +7,12 @@ import {UserService} from "../services/userService";
 import {ChangePasswordReq} from "../UserModals/requests/ChangePasswordReq";
 import {DefaultResponse} from "../UserModals/responses/DefaultResponse";
 import {AuthenticationService} from "../services/authentication.service";
-import { Router, RouterLink } from "@angular/router";
-import { NgbToast } from '@ng-bootstrap/ng-bootstrap';
-import { NgIf } from '@angular/common';
-import { NavbarComponent } from '../navbar/navbar.component';
+import {Router} from "@angular/router";
 
 @Component({
-    selector: 'app-change-password',
-    templateUrl: './change-password.component.html',
-    styleUrl: './change-password.component.css',
-    standalone: true,
-    imports: [NavbarComponent, FormsModule, ReactiveFormsModule, NgIf, RouterLink, NgbToast]
+  selector: 'app-change-password',
+  templateUrl: './change-password.component.html',
+  styleUrl: './change-password.component.css'
 })
 export class ChangePasswordComponent implements OnInit {
   private formBuilder: FormBuilder = inject(FormBuilder)

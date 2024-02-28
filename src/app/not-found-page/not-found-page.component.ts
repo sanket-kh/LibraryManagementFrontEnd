@@ -1,14 +1,11 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
 import {AuthenticationService} from "../UserComponents/services/authentication.service";
-import { NgOptimizedImage } from '@angular/common';
 
 @Component({
-    selector: 'app-not-found-page',
-    templateUrl: './not-found-page.component.html',
-    styleUrl: './not-found-page.component.css',
-    standalone: true,
-    imports: [NgOptimizedImage]
+  selector: 'app-not-found-page',
+  templateUrl: './not-found-page.component.html',
+  styleUrl: './not-found-page.component.css'
 })
 export class NotFoundPageComponent implements OnInit {
   router: Router = inject(Router)

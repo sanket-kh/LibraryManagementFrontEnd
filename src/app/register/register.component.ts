@@ -1,5 +1,5 @@
 import {Component, inject, OnInit} from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators, FormsModule, ReactiveFormsModule } from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {CustomValidatorService} from "../UserComponents/services/CustomValidators";
 import {UserRegisterRequest} from "../UserComponents/UserModals/requests/UserRegisterRequest";
 import {RegexConstants} from "../constants/regex-constants";
@@ -7,19 +7,12 @@ import {UserService} from "../UserComponents/services/userService";
 import {HttpErrorResponse} from "@angular/common/http";
 import {DefaultResponse} from "../UserComponents/UserModals/responses/DefaultResponse";
 import {Router} from "@angular/router";
-import { NgbToast } from '@ng-bootstrap/ng-bootstrap';
-import { MaxLengthDirective } from '../directives/max-length.directive';
-import { NoSpecialCharDirective } from '../directives/no-special-char.directive';
-import { NoAlphabetsDirective } from '../directives/no-alphabets.directive';
-import { NgIf } from '@angular/common';
 
 
 @Component({
-    selector: 'app-register',
-    templateUrl: './register.component.html',
-    styleUrl: './register.component.css',
-    standalone: true,
-    imports: [FormsModule, ReactiveFormsModule, NgIf, NoAlphabetsDirective, NoSpecialCharDirective, MaxLengthDirective, NgbToast]
+  selector: 'app-register',
+  templateUrl: './register.component.html',
+  styleUrl: './register.component.css'
 })
 export class RegisterComponent implements OnInit {
 

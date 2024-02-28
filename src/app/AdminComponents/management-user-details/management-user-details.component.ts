@@ -14,20 +14,11 @@ import {ClearFineReq} from "../admin-modals/requests/ClearFineReq";
 import {HttpErrorResponse} from "@angular/common/http";
 import {ManageFineService} from "../services/ManageFineService";
 import {AccountTypes} from "../admin-modals/Dtos/AccountTypes";
-import { NgbToast } from '@ng-bootstrap/ng-bootstrap';
-import { QRCodeModule } from 'angularx-qrcode';
-import { FormsModule } from '@angular/forms';
-import { NgSelectModule } from '@ng-select/ng-select';
-import { NgIf, NgFor, DecimalPipe } from '@angular/common';
-import { AccordionModule } from 'ngx-bootstrap/accordion';
-import { ManagementNav } from '../management-nav/navbar.component';
 
 @Component({
-    selector: 'app-management-user-details',
-    templateUrl: './management-user-details.component.html',
-    styleUrl: './management-user-details.component.css',
-    standalone: true,
-    imports: [ManagementNav, AccordionModule, NgIf, NgFor, NgSelectModule, FormsModule, QRCodeModule, NgbToast, DecimalPipe]
+  selector: 'app-management-user-details',
+  templateUrl: './management-user-details.component.html',
+  styleUrl: './management-user-details.component.css'
 })
 export class ManagementUserDetailsComponent implements OnInit {
   private activatedRoute: ActivatedRoute = inject(ActivatedRoute)

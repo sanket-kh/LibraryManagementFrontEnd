@@ -1,5 +1,5 @@
 import {Component, inject, OnInit, ViewEncapsulation} from '@angular/core';
-import { AbstractControl, FormArray, FormControl, FormGroup, Validators, FormsModule, ReactiveFormsModule } from "@angular/forms";
+import {AbstractControl, FormArray, FormControl, FormGroup, Validators} from "@angular/forms";
 import {AdminAccService} from "../services/AdminAccService";
 import {Router} from "@angular/router";
 import {RegexConstants} from "../../constants/regex-constants";
@@ -8,21 +8,12 @@ import {DefaultResponse} from "../admin-modals/responses/DefaultResponse";
 import {CustomValidatorService} from "../../UserComponents/services/CustomValidators";
 import {AccountTypes} from "../admin-modals/Dtos/AccountTypes";
 import {AccAssociatedOrgs} from "../admin-modals/Dtos/AccAssociatedOrgs";
-import { NgbToast } from '@ng-bootstrap/ng-bootstrap';
-import { MaxLengthDirective } from '../../directives/max-length.directive';
-import { NoSpecialCharDirective } from '../../directives/no-special-char.directive';
-import { NoAlphabetsDirective } from '../../directives/no-alphabets.directive';
-import { NgSelectModule } from '@ng-select/ng-select';
-import { NgFor, NgIf } from '@angular/common';
-import { ManagementNav } from '../management-nav/navbar.component';
 
 @Component({
-    selector: 'app-admin-acc-setup',
-    templateUrl: './admin-acc-setup.component.html',
-    styleUrl: './admin-acc-setup.component.css',
-    encapsulation: ViewEncapsulation.None,
-    standalone: true,
-    imports: [ManagementNav, FormsModule, ReactiveFormsModule, NgFor, NgSelectModule, NgIf, NoAlphabetsDirective, NoSpecialCharDirective, MaxLengthDirective, NgbToast]
+  selector: 'app-admin-acc-setup',
+  templateUrl: './admin-acc-setup.component.html',
+  styleUrl: './admin-acc-setup.component.css',
+  encapsulation: ViewEncapsulation.None
 })
 export class AdminAccSetupComponent implements OnInit {
 

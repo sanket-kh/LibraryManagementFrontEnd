@@ -1,14 +1,11 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
 import {AuthenticationService} from "../../UserComponents/services/authentication.service";
-import { LoadingPageComponent } from '../../loading-page/loading-page.component';
 
 @Component({
-    selector: 'app-admin-refresh-page',
-    templateUrl: './admin-refresh-page.component.html',
-    styleUrl: './admin-refresh-page.component.css',
-    standalone: true,
-    imports: [LoadingPageComponent]
+  selector: 'app-admin-refresh-page',
+  templateUrl: './admin-refresh-page.component.html',
+  styleUrl: './admin-refresh-page.component.css'
 })
 export class AdminRefreshPageComponent implements OnInit{
   router:Router = inject(Router)

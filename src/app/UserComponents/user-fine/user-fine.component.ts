@@ -3,14 +3,11 @@ import {FineService} from "../services/FineService";
 import {UserFineDto} from "../UserModals/dtos/UserFineDto";
 import {ActivatedRoute} from "@angular/router";
 import {DefaultResponse} from "../UserModals/responses/DefaultResponse";
-import { NavbarComponent } from '../navbar/navbar.component';
 
 @Component({
-    selector: 'app-user-fine',
-    templateUrl: './user-fine.component.html',
-    styleUrl: './user-fine.component.css',
-    standalone: true,
-    imports: [NavbarComponent]
+  selector: 'app-user-fine',
+  templateUrl: './user-fine.component.html',
+  styleUrl: './user-fine.component.css'
 })
 export class UserFineComponent implements OnInit{
 fineService:FineService = inject(FineService)

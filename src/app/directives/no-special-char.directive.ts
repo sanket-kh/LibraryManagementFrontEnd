@@ -1,8 +1,7 @@
 import {Directive, HostListener} from '@angular/core';
 
 @Directive({
-    selector: '[appNoSpecialChar]',
-    standalone: true
+  selector: '[appNoSpecialChar]'
 })
 export class NoSpecialCharDirective {
 
