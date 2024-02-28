@@ -4,15 +4,11 @@ import {BookService} from "../services/book.service";
 import {UserBookTransactionDto} from "../UserModals/dtos/UserBookTransactionDto";
 import {ActivatedRoute} from "@angular/router";
 import {DefaultResponse} from "../UserModals/responses/DefaultResponse";
-import { NgIf, DatePipe } from '@angular/common';
-import { NavbarComponent } from '../navbar/navbar.component';
 
 @Component({
-    selector: 'app-user-transaction',
-    templateUrl: './user-transaction.component.html',
-    styleUrl: './user-transaction.component.css',
-    standalone: true,
-    imports: [NavbarComponent, NgIf, DatePipe]
+  selector: 'app-user-transaction',
+  templateUrl: './user-transaction.component.html',
+  styleUrl: './user-transaction.component.css'
 })
 export class UserTransactionComponent implements OnInit{
   private userService: UserService = inject(UserService)

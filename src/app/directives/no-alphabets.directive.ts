@@ -1,8 +1,7 @@
 import {Directive, ElementRef, HostListener, inject} from '@angular/core';
 
 @Directive({
-    selector: '[appNoAlphabets]',
-    standalone: true
+  selector: '[appNoAlphabets]'
 })
 export class NoAlphabetsDirective {
 

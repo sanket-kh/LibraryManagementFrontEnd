@@ -1,27 +1,18 @@
 import {Component, HostListener, inject, OnInit} from '@angular/core';
 import {ManageBookTransactionDto} from "../admin-modals/Dtos/ManageBookTransactionDto";
 import {ManageBookService} from "../services/ManageBookService";
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from "@angular/forms";
+import {FormControl, FormGroup} from "@angular/forms";
 import {SearchTransactionReq} from "../admin-modals/requests/SearchTransactionReq";
 import {DateDto} from "../admin-modals/Dtos/DateDto";
 import {ActivatedRoute, Router} from "@angular/router";
 import {DefaultResponse} from "../admin-modals/responses/DefaultResponse";
 import dayjs from "dayjs";
-import { DOCUMENT, ViewportScroller, NgIf, DatePipe } from "@angular/common";
-import { NgbToast } from '@ng-bootstrap/ng-bootstrap';
-import { InfiniteScrollModule } from 'ngx-infinite-scroll';
-import { ApwDaterangepickerBsModule } from 'apw-daterangepicker-bs';
-import { MaxLengthDirective } from '../../directives/max-length.directive';
-import { NoSpecialCharDirective } from '../../directives/no-special-char.directive';
-import { NoAlphabetsDirective } from '../../directives/no-alphabets.directive';
-import { ManagementNav } from '../management-nav/navbar.component';
+import {DOCUMENT, ViewportScroller} from "@angular/common";
 
 @Component({
-    selector: 'app-management-transaction',
-    templateUrl: './management-transaction.component.html',
-    styleUrl: './management-transaction.component.css',
-    standalone: true,
-    imports: [ManagementNav, FormsModule, ReactiveFormsModule, NoAlphabetsDirective, NoSpecialCharDirective, MaxLengthDirective, ApwDaterangepickerBsModule, InfiniteScrollModule, NgIf, NgbToast, DatePipe]
+  selector: 'app-management-transaction',
+  templateUrl: './management-transaction.component.html',
+  styleUrl: './management-transaction.component.css'
 })
 export class ManagementTransactionComponent implements OnInit {
   transactionList: ManageBookTransactionDto[] = []
@@ -31,9 +22,9 @@ export class ManagementTransactionComponent implements OnInit {
   router: Router = inject(Router)
   viewPort = inject(ViewportScroller)
   currentPage: number = 0
-  showToTopButton!: boolean
+  showToTopButton!:boolean
   searchFilter: FormGroup = new FormGroup<any>({})
-  searchTransactionReq!: SearchTransactionReq
+  searchTransactionReq: SearchTransactionReq = {}
   showToast: boolean = false;
   toastMessage: string = '';
   datePickerConfig: any = {
@@ -50,18 +41,17 @@ export class ManagementTransactionComponent implements OnInit {
       }
     )
     this.searchFilter = new FormGroup<any>({
-      isbn: new FormControl<string>(''),
-      username: new FormControl<string>(''),
-      date: new FormControl<string>(''),
+      isbn: new FormControl(null),
+      username: new FormControl(''),
+      date: new FormControl(''),
     })
   }
-
   @HostListener('window:scroll')
-  checkScroll() {
+  checkScroll(){
     const scrollPosition = this.document.documentElement.scrollTop || this.document.body.scrollTop || 0;
-    if (scrollPosition > 100) {
+    if(scrollPosition>100){
       this.showToTopButton = true
-    } else {
+    }else{
       this.showToTopButton = false
     }
   }
@@ -84,7 +74,7 @@ export class ManagementTransactionComponent implements OnInit {
     if (date.fromDate !== null && date.toDate !== null) {
       this.searchTransactionReq.fromDate = date.fromDate.set("hour", 0).set("minute", 0).set("second", 0).format('YYYY-MM-DD HH:mm:ss')
       this.searchTransactionReq.toDate = date.toDate.set("hour", 23).set("minute", 59).set("second", 59).format('YYYY-MM-DD HH:mm:ss')
-      if (this.searchTransactionReq.fromDate.substring(0, 10) === this.searchTransactionReq.toDate.substring(0, 10)) {
+      if (this.searchTransactionReq.fromDate.substring(0,10) === this.searchTransactionReq.toDate.substring(0,10)) {
         this.searchTransactionReq.toDate = null
       }
     }
@@ -121,18 +111,15 @@ export class ManagementTransactionComponent implements OnInit {
       this.getAllTransactions()
       return;
     }
-    console.log(this.isbn?.value)
-    this.searchTransactionReq = this.searchFilter.value
+    this.searchTransactionReq.isbn = this.isbn?.value
+    this.searchTransactionReq.username = this.username?.value
     if (this.searchTransactionReq.isbn == null && this.searchTransactionReq.username == '' &&
       this.searchTransactionReq.fromDate === null) {
       console.log('here')
       this.getAllTransactions();
       return
     }
-    console.log(this.date?.value)
-    if (this.date?.value) {
       this.setDate(this.date?.value)
-    }
     console.log(this.searchTransactionReq)
     this.manageBookService.searchTransaction(this.searchTransactionReq).subscribe({
       next: response => {

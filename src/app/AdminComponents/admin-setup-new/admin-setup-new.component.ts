@@ -1,5 +1,5 @@
 import {Component, inject, OnInit} from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators, FormsModule, ReactiveFormsModule } from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {UserService} from "../../UserComponents/services/userService";
 import {Router} from "@angular/router";
 import {UserRegisterRequest} from "../../UserComponents/UserModals/requests/UserRegisterRequest";
@@ -7,19 +7,11 @@ import {CustomValidatorService} from "../../UserComponents/services/CustomValida
 import {HttpErrorResponse} from "@angular/common/http";
 import {DefaultResponse} from "../../UserComponents/UserModals/responses/DefaultResponse";
 import {RegexConstants} from "../../constants/regex-constants";
-import { NgbToast } from '@ng-bootstrap/ng-bootstrap';
-import { MaxLengthDirective } from '../../directives/max-length.directive';
-import { NoSpecialCharDirective } from '../../directives/no-special-char.directive';
-import { NoAlphabetsDirective } from '../../directives/no-alphabets.directive';
-import { NgIf } from '@angular/common';
-import { ManagementNav } from '../management-nav/navbar.component';
 
 @Component({
-    selector: 'app-admin-setup-new',
-    templateUrl: './admin-setup-new.component.html',
-    styleUrl: './admin-setup-new.component.css',
-    standalone: true,
-    imports: [ManagementNav, FormsModule, ReactiveFormsModule, NgIf, NoAlphabetsDirective, NoSpecialCharDirective, MaxLengthDirective, NgbToast]
+  selector: 'app-admin-setup-new',
+  templateUrl: './admin-setup-new.component.html',
+  styleUrl: './admin-setup-new.component.css'
 })
 export class AdminSetupNewComponent implements OnInit{
 

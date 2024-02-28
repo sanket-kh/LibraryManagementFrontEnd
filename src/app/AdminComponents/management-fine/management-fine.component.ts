@@ -6,17 +6,11 @@ import {ClearFineReq} from "../admin-modals/requests/ClearFineReq";
 import {HttpErrorResponse} from "@angular/common/http";
 import {DefaultResponse} from "../admin-modals/responses/DefaultResponse";
 import {ActivatedRoute} from "@angular/router";
-import { NgbToast } from '@ng-bootstrap/ng-bootstrap';
-import { ModalComponent } from '../../UserComponents/modal/modal.component';
-import { NgIf, NgFor, DecimalPipe } from '@angular/common';
-import { ManagementNav } from '../management-nav/navbar.component';
 
 @Component({
-    selector: 'app-management-fine',
-    templateUrl: './management-fine.component.html',
-    styleUrl: './management-fine.component.css',
-    standalone: true,
-    imports: [ManagementNav, NgIf, NgFor, ModalComponent, NgbToast, DecimalPipe]
+  selector: 'app-management-fine',
+  templateUrl: './management-fine.component.html',
+  styleUrl: './management-fine.component.css'
 })
 export class ManagementFineComponent implements OnInit{
   fineService: ManageFineService = inject(ManageFineService)

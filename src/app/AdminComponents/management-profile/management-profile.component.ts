@@ -3,14 +3,11 @@ import {UserDto} from "../../UserComponents/UserModals/dtos/UserDto";
 import {UserService} from "../../UserComponents/services/userService";
 import {DefaultResponse} from "../../UserComponents/UserModals/responses/DefaultResponse";
 import {ActivatedRoute, Router} from "@angular/router";
-import { ManagementNav } from '../management-nav/navbar.component';
 
 @Component({
-    selector: 'app-management-profile',
-    templateUrl: './management-profile.component.html',
-    styleUrl: './management-profile.component.css',
-    standalone: true,
-    imports: [ManagementNav]
+  selector: 'app-management-profile',
+  templateUrl: './management-profile.component.html',
+  styleUrl: './management-profile.component.css'
 })
 export class ManagementProfileComponent implements OnInit{
   user: UserDto ={};

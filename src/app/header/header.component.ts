@@ -1,16 +1,13 @@
 import {Component, Inject, inject, Input, OnDestroy, OnInit} from '@angular/core';
 import {AuthenticationService} from "../UserComponents/services/authentication.service";
 import {fromEvent, Observable, Subscription} from "rxjs";
-import { DOCUMENT, NgIf } from "@angular/common";
+import {DOCUMENT} from "@angular/common";
 import {ActivatedRoute, Router} from "@angular/router";
-import { OnlineStatusComponent } from '../online-status/online-status.component';
 
 @Component({
-    selector: 'app-header',
-    templateUrl: './header.component.html',
-    styleUrl: './header.component.css',
-    standalone: true,
-    imports: [NgIf, OnlineStatusComponent]
+  selector: 'app-header',
+  templateUrl: './header.component.html',
+  styleUrl: './header.component.css'
 })
 export class HeaderComponent implements OnInit, OnDestroy{
   onlineEvent!: Observable<Event>;

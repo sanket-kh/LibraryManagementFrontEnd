@@ -1,18 +1,19 @@
-import {afterNextRender, inject, Inject, Injectable, OnInit} from '@angular/core';
+import {Inject, inject, Injectable, PLATFORM_ID} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable, of} from "rxjs";
 import {DOCUMENT} from "@angular/common";
 import {LoginRequest} from "../UserModals/requests/LoginRequest";
 import {DefaultResponse} from "../UserModals/responses/DefaultResponse";
-import {document} from "ngx-bootstrap/utils";
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthenticationService implements OnInit {
+export class AuthenticationService {
 
   constructor(@Inject(DOCUMENT) private document: Document,
-  ) {
+              @Inject(PLATFORM_ID) private platformId:Object,
+              ) {
+
   }
 
   private readonly httpClient: HttpClient = inject(HttpClient);
@@ -21,7 +22,6 @@ export class AuthenticationService implements OnInit {
   canActivateAdmin() {
     return of(this.isAdmin() && this.isAuthenticated())
   }
-
   canActivateUser() {
     return of(this.isUser() && this.isAuthenticated())
   }
@@ -54,11 +54,6 @@ export class AuthenticationService implements OnInit {
   isAdmin() {
     let sessionStorage = this.document.defaultView?.sessionStorage as Storage
     return sessionStorage.getItem('role') === 'LIBRARIAN'
-  }
-
-  ngOnInit(): void {
-    afterNextRender((): void =>
-      this.document =document)
   }
 
 }

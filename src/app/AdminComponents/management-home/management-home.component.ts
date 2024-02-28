@@ -1,14 +1,11 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {ReportStatService} from "../services/ReportStatService";
 import {UserService} from "../../UserComponents/services/userService";
-import { ManagementNav } from '../management-nav/navbar.component';
 
 @Component({
-    selector: 'app-management-home',
-    templateUrl: './management-home.component.html',
-    styleUrl: './management-home.component.css',
-    standalone: true,
-    imports: [ManagementNav]
+  selector: 'app-management-home',
+  templateUrl: './management-home.component.html',
+  styleUrl: './management-home.component.css'
 })
 export class ManagementHomeComponent implements OnInit{
   reportStatService: ReportStatService = inject(ReportStatService)
