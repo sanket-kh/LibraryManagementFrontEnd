@@ -1,6 +1,6 @@
 export class SearchTransactionReq{
-  isbn?:number
-  username?:string
-  fromDate?:null|string
-  toDate?:null|string
+  isbn!:string
+  username!:string
+  fromDate!:null|string
+  toDate!:null|string
 }

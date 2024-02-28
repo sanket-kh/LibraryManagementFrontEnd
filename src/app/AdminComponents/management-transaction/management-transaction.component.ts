@@ -22,9 +22,9 @@ export class ManagementTransactionComponent implements OnInit {
   router: Router = inject(Router)
   viewPort = inject(ViewportScroller)
   currentPage: number = 0
-  showToTopButton!:boolean
+  showToTopButton!: boolean
   searchFilter: FormGroup = new FormGroup<any>({})
-  searchTransactionReq: SearchTransactionReq = {}
+  searchTransactionReq!: SearchTransactionReq
   showToast: boolean = false;
   toastMessage: string = '';
   datePickerConfig: any = {
@@ -41,17 +41,18 @@ export class ManagementTransactionComponent implements OnInit {
       }
     )
     this.searchFilter = new FormGroup<any>({
-      isbn: new FormControl(null),
-      username: new FormControl(''),
-      date: new FormControl(''),
+      isbn: new FormControl<string>(''),
+      username: new FormControl<string>(''),
+      date: new FormControl<string>(''),
     })
   }
+
   @HostListener('window:scroll')
-  checkScroll(){
+  checkScroll() {
     const scrollPosition = this.document.documentElement.scrollTop || this.document.body.scrollTop || 0;
-    if(scrollPosition>100){
+    if (scrollPosition > 100) {
       this.showToTopButton = true
-    }else{
+    } else {
       this.showToTopButton = false
     }
   }
@@ -74,7 +75,7 @@ export class ManagementTransactionComponent implements OnInit {
     if (date.fromDate !== null && date.toDate !== null) {
       this.searchTransactionReq.fromDate = date.fromDate.set("hour", 0).set("minute", 0).set("second", 0).format('YYYY-MM-DD HH:mm:ss')
       this.searchTransactionReq.toDate = date.toDate.set("hour", 23).set("minute", 59).set("second", 59).format('YYYY-MM-DD HH:mm:ss')
-      if (this.searchTransactionReq.fromDate.substring(0,10) === this.searchTransactionReq.toDate.substring(0,10)) {
+      if (this.searchTransactionReq.fromDate.substring(0, 10) === this.searchTransactionReq.toDate.substring(0, 10)) {
         this.searchTransactionReq.toDate = null
       }
     }
@@ -111,15 +112,18 @@ export class ManagementTransactionComponent implements OnInit {
       this.getAllTransactions()
       return;
     }
-    this.searchTransactionReq.isbn = this.isbn?.value
-    this.searchTransactionReq.username = this.username?.value
+    console.log(this.isbn?.value)
+    this.searchTransactionReq = this.searchFilter.value
     if (this.searchTransactionReq.isbn == null && this.searchTransactionReq.username == '' &&
       this.searchTransactionReq.fromDate === null) {
       console.log('here')
       this.getAllTransactions();
       return
     }
+    console.log(this.date?.value)
+    if (this.date?.value) {
       this.setDate(this.date?.value)
+    }
     console.log(this.searchTransactionReq)
     this.manageBookService.searchTransaction(this.searchTransactionReq).subscribe({
       next: response => {
